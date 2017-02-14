@@ -1,0 +1,21 @@
+{
+  "name": "todo",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "echentw <echentw@mit.edu>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "^6.3.0"
+  }
+}
