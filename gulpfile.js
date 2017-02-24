@@ -61,7 +61,7 @@ gulp.task('sass', () => {
 
 gulp.task('babel', () => {
   gulp.src(paths.clientJS.files)
-    .pipe(babel({presets: ['es2015']}))
+    .pipe(babel({presets: ['es2015', 'react']}))
     .pipe(gulp.dest(paths.clientJS.dest));
 });
 
