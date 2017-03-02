@@ -17,7 +17,7 @@ class Task extends React.Component {
     if (indentationLevel > 0) {
       return (
         <div className="row task">
-          <div className"large-1 column"></div>
+          <div className="large-1 column"></div>
           <div className="large-1 column">
             <input type="checkbox"
               checked={checked}
