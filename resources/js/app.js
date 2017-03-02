@@ -1,30 +1,49 @@
-class Checkbox extends React.Component {
+class Task extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: false
+      checked: false,
+      indentationLevel: Number(this.props.indent)
     };
-
     this.toggle = () => {
-      this.setState({isChecked: !isChecked});
+      console.log('indent ' + this.state.indentationLevel);
+      this.setState({checked: !this.state.checked});
     };
   }
-
   render() {
-    const {label} = this.props;
-    const {isChecked} = this.state;
+    const {checked} = this.state;
+    const {indentationLevel} = this.state;
+
+    if (indentationLevel > 0) {
+      return (
+        <div className="row task">
+          <div className"large-1 column"></div>
+          <div className="large-1 column">
+            <input type="checkbox"
+              checked={checked}
+              onChange={this.toggle}
+              className="task-checkbox"
+            />
+          </div>
+          <div className="large-11 columns">
+            <input type="text" className="task-text" />
+          </div>
+        </div>
+      );
+    }
 
     return (
-      <div className="checkbox">
-        <label>
-          <input
-            type="checkbox"
-            value={label}
-            checked={isChecked}
+      <div className="row task">
+        <div className="large-1 column">
+          <input type="checkbox"
+            checked={checked}
             onChange={this.toggle}
+            className="task-checkbox"
           />
-          {label}
-        </label>
+        </div>
+        <div className="large-11 columns">
+          <input type="text" className="task-text" />
+        </div>
       </div>
     );
   }
@@ -32,7 +51,12 @@ class Checkbox extends React.Component {
 
 class Application extends React.Component {
   render() {
-    return <Checkbox label="this is the label"/>
+    return (
+      <div>
+        <Task indent="0" />
+        <Task indent="1" />
+      </div>
+    );
   }
 }
 

@@ -2,6 +2,16 @@
 
 @include foundation-everything;
 
+.task {
+  position: relative;
+
+  .task-text {
+    position: absolute;
+    left: 50px;
+    right: 0px;
+  }
+}
+
 //body {
 //  padding: 50px;
 //  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
