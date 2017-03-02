@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const babel = require('gulp-babel');
-
+const webpack = require('webpack-stream');
 const server = require('gulp-develop-server');
 
 const paths = {
@@ -9,13 +8,15 @@ const paths = {
     files: './resources/scss/**/*.scss',
     includePaths: [
       './resources/scss',
-      './bower_components/foundation-sites/scss'
+      './bower_components/foundation-sites/scss',
     ],
-    dest: './public/css'
+    dest: './public/css',
   },
   clientJS: {
     files: './resources/js/**/*.js',
-    dest: './public/js'
+    entry: './resources/js/entry.js',
+    dest: './public/js/',
+    output: 'bundle.js',
   },
   serverJS: {
     files: [
@@ -23,11 +24,11 @@ const paths = {
       '!node_modules/**',
       '!bin/**',
       '!resources/**',
-      '!public/**'
+      '!public/**',
     ]
   },
   scripts: {
-    start: 'bin/www'
+    start: 'bin/www',
   }
 };
 
@@ -43,10 +44,32 @@ gulp.task('server:restart', () => {
   server.restart();
 });
 
-gulp.task('default', ['server:start', 'build'], () => {
+gulp.task('default', ['build', 'server:start'], () => {
   gulp.watch(paths.serverJS.files, ['server:restart']);
-  gulp.watch(paths.styles.files, ['sass']);
   gulp.watch(paths.clientJS.files, ['babel']);
+  gulp.watch(paths.styles.files, ['sass']);
+});
+
+gulp.task('build', ['sass', 'babel']);
+
+gulp.task('babel', () => {
+  gulp.src(paths.clientJS.entry)
+    .pipe(webpack({
+      module: {
+        loaders: [{
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          query: {
+            presets: ['es2015', 'stage-0', 'react'],
+          },
+        }]
+      },
+      output: {
+        filename: paths.clientJS.output,
+      }
+    }))
+    .pipe(gulp.dest(paths.clientJS.dest));
 });
 
 gulp.task('sass', () => {
@@ -57,14 +80,4 @@ gulp.task('sass', () => {
       includePaths: paths.styles.includePaths
     }))
     .pipe(gulp.dest(paths.styles.dest));
-});
-
-gulp.task('babel', () => {
-  gulp.src(paths.clientJS.files)
-    .pipe(babel({presets: ['es2015', 'react']}))
-    .pipe(gulp.dest(paths.clientJS.dest));
-});
-
-gulp.task('build', ['sass', 'babel'], () => {
-  // Compiling SCSS and ES6
 });
