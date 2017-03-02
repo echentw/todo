@@ -1,13 +1,3 @@
 @import "foundation";
 
 @include foundation-everything;
-
-.task {
-  position: relative;
-
-  .task-text {
-    position: absolute;
-    left: 50px;
-    right: 0px;
-  }
-}
