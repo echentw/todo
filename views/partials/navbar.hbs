@@ -1,0 +1,19 @@
+<div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="menu">
+      <li class="menu-text">{{title}}</li>
+    </ul>
+  </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        {{#if name}}
+          <li>Hello, {{name}}</li>
+          <li><a href='/logout'>Logout</a></li>
+        {{else}}
+          <li><a href='/auth/facebook'>Login</a></li>
+          <li><a href='#'>Register</a></li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>
