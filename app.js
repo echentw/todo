@@ -7,11 +7,20 @@ const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
+const mongoose = require('mongoose');
 
 const index = require('./routes/index');
 const keys = require('./keys');
 
 const app = express();
+
+const User = require('./schemas/user');
+
+// database setup
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/test');
+var connection = mongoose.connection;
+connection.on('error', console.error.bind(console, 'connection error:'));
+connection.on('connected', () => console.log('database connected!'));
 
 // Passport setup
 passport.use(new FacebookStrategy({
@@ -20,15 +29,24 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
   (accessToken, refreshToken, profile, cb) => {
-    console.log('hi');
-    const user = {
-      name: 'Eric',
-      age: 22
-    };
-    return cb(null, user);
-    // User.findOrCreate({ facebookId: profile.id }, function(err, user) {
-    //   return cb(err, user);
-    // });
+    User.findOne({'facebookId': profile.id}, (err, user) => {
+      if (user) {
+        console.log('found the user!');
+        return cb(err, user);
+      } else {
+        const newUser = new User({
+          'facebookId': profile.id,
+          'name': profile.displayName,
+        });
+        newUser.save((err) => {
+          if (err) {
+            console.log('error: ' + err);
+          } else {
+            return cb(err, newUser);
+          }
+        });
+      }
+    });
   }
 ));
 passport.serializeUser((user, done) => done(null, user));
