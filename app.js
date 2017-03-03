@@ -5,10 +5,36 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook');
 
 const index = require('./routes/index');
+const keys = require('./keys');
 
 const app = express();
+
+// Passport setup
+passport.use(new FacebookStrategy({
+    clientID: keys.facebook.id,
+    clientSecret: keys.facebook.secret,
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  (accessToken, refreshToken, profile, cb) => {
+    console.log('hi');
+    const user = {
+      name: 'Eric',
+      age: 22
+    };
+    return cb(null, user);
+    // User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+    //   return cb(err, user);
+    // });
+  }
+));
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((obj, done) => done(null, obj));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
