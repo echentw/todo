@@ -39,13 +39,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(session({
   secret: auth.expressSession.secret,
   resave: false,
   saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Publicly served files
 app.use(express.static(path.join(__dirname, 'public')));
