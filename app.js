@@ -31,7 +31,6 @@ passport.use(new FacebookStrategy({
   (accessToken, refreshToken, profile, cb) => {
     User.findOne({'facebookId': profile.id}, (err, user) => {
       if (user) {
-        console.log('found the user!');
         return cb(err, user);
       } else {
         const newUser = new User({
