@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const webpack = require('webpack-stream');
 const server = require('gulp-develop-server');
+const clean = require('gulp-clean');
 
 const paths = {
   styles: {
@@ -29,8 +30,20 @@ const paths = {
   },
   scripts: {
     start: 'bin/www',
+  },
+  clean: {
+    paths: [
+      './public',
+      './node_modules',
+      './bower_components',
+    ],
   }
 };
+
+gulp.task('clean', function () {
+  gulp.src(paths.clean.paths, {read: false})
+    .pipe(clean());
+});
 
 gulp.task('server:start', () => {
   server.listen({path: paths.scripts.start}, (error) => {
