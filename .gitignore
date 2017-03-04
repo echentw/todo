@@ -9,7 +9,7 @@ public/
 data/
 
 # Secret keys
-keys.js
+auth.js
 
 # Debug output
 npm-debug.log

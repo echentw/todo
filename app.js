@@ -5,12 +5,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
-const passport = require('passport');
-const FacebookStrategy = require('passport-facebook');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
 
 const index = require('./routes/index');
-const keys = require('./keys');
+const auth = require('./config/auth');
+const passportConfig = require('./config/passport');
 
 const app = express();
 
@@ -18,40 +19,9 @@ const User = require('./schemas/user');
 
 // database setup
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/test');
-var connection = mongoose.connection;
+const connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 connection.on('connected', () => console.log('database connected!'));
-
-// Passport setup
-passport.use(new FacebookStrategy({
-    clientID: keys.facebook.id,
-    clientSecret: keys.facebook.secret,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
-  },
-  (accessToken, refreshToken, profile, cb) => {
-    User.findOne({'facebookId': profile.id}, (err, user) => {
-      if (user) {
-        return cb(err, user);
-      } else {
-        const newUser = new User({
-          'facebookId': profile.id,
-          'name': profile.displayName,
-        });
-        newUser.save((err) => {
-          if (err) {
-            console.log('error: ' + err);
-          } else {
-            return cb(err, newUser);
-          }
-        });
-      }
-    });
-  }
-));
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj, done) => done(null, obj));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -69,6 +39,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(session({
+  secret: auth.expressSession.secret,
+  resave: false,
+  saveUninitialized: false
+}));
 
 // Publicly served files
 app.use(express.static(path.join(__dirname, 'public')));
