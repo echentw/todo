@@ -1,5 +1,21 @@
 const React = require('react');
 
+function CheckBox(props) {
+  const toggle = props.toggle;
+  const checked = props.checked;
+
+  let imagePath;
+  if (checked) {
+    imagePath = '/img/check.png';
+  } else {
+    imagePath = '/img/square.svg';
+  }
+
+  return (
+    <img className="checkbox" onClick={toggle} src={imagePath}/>
+  );
+}
+
 class Task extends React.Component {
   constructor(props) {
     super(props);
@@ -8,44 +24,16 @@ class Task extends React.Component {
       indentationLevel: Number(this.props.indent)
     };
     this.toggle = () => {
-      console.log('indent ' + this.state.indentationLevel);
       this.setState({checked: !this.state.checked});
     };
   }
   render() {
     const {checked} = this.state;
-    const {indentationLevel} = this.state;
-
-    if (indentationLevel > 0) {
-      return (
-        <div className="row task">
-          <div className="large-1 column"></div>
-          <div className="large-1 column">
-            <input type="checkbox"
-              checked={checked}
-              onChange={this.toggle}
-              className="task-checkbox"
-            />
-          </div>
-          <div className="large-11 columns">
-            <input type="text" className="task-text" />
-          </div>
-        </div>
-      );
-    }
 
     return (
-      <div className="row task">
-        <div className="large-1 column">
-          <input type="checkbox"
-            checked={checked}
-            onChange={this.toggle}
-            className="task-checkbox"
-          />
-        </div>
-        <div className="large-11 columns">
-          <input type="text" className="task-text" />
-        </div>
+      <div className="task-container">
+        <CheckBox toggle={this.toggle} checked={checked}/>
+        <input type="text" className="task-text"/>
       </div>
     );
   }

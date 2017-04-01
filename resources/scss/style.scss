@@ -1,3 +1,42 @@
 @import "foundation";
 
 @include foundation-everything;
+
+.home-container {
+  background-color: lightyellow;
+  margin: 10px 10px;
+}
+
+.task-container {
+  position: relative;
+
+  .checkbox {
+    position: absolute;
+    top: 0px;
+
+    display: inline;
+    z-index: 1;
+
+    height: 30px;
+    width: 30px;
+  }
+  .task-text {
+    position: relative;
+    top: 0px;
+
+    display: inline;
+    z-index: 0;
+
+    border: none;
+
+    min-height: 30px;
+    height: 30px;
+    width: 1000px;
+    margin: 0px 0px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 10px;
+  }
+}
