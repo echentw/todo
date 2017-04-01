@@ -24,7 +24,7 @@ passport.use(new FacebookStrategy({
         'facebookId': profile.id,
         'name': profile.displayName,
       });
-      newUser.save((err) => done(err, user));
+      newUser.save((err) => done(err, newUser));
     }
   });
 }));
