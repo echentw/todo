@@ -3,6 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 
 const isAuthenticated = require('../config/passport').isAuthenticated;
+const User = require('../schemas/user');
 
 router.get('/', (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -25,6 +26,16 @@ router.get('/logout', (req, res, next) => {
 
 router.get('/home', isAuthenticated, (req, res, next) => {
   res.render('home', {title: 'Todo', name: req.user.name});
+});
+
+router.get('/user/tasklist', isAuthenticated, (req, res, next) => {
+  User.findOne({_id: req.user._id}, (err, user) => {
+    if (err) {
+      res.send('oops error');
+    } else {
+      res.send(user.tasks);
+    }
+  });
 });
 
 module.exports = router;
