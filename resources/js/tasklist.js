@@ -15,11 +15,20 @@ class TaskList extends React.Component {
     axios.get('/tasklist/get')
       .then((response) => {
         // this.setState({tasks: response.data.tasks});
-        this.setState({tasks: ['hi', 'sup', 'bye']});
+        this.setState({
+          tasks: [
+            {id: '1', value: 'hi', checked: false},
+            {id: '2', value: 'sup', checked: true},
+            {id: '3', value: 'bye', checked: false},
+          ]
+        });
       })
       .catch((error) => {
         console.log('Error fetching tasks:', error);
       });
+  }
+  toggle(e) {
+    console.log(e);
   }
   save() {
     axios.post('/tasklist/save', {
@@ -29,7 +38,7 @@ class TaskList extends React.Component {
       })
       .then((response) => {
         const tasks = response.data.tasks;
-        const taskItems = tasks.map((taskText) => <Task/>);
+        const taskItems = tasks.map((task) => <Task/>);
       })
       .catch((error) => {
         console.log(error);
@@ -37,7 +46,9 @@ class TaskList extends React.Component {
   }
   render() {
     if (this.state.tasks) {
-      const taskItems = this.state.tasks.map((taskText) => <Task/>);
+      const taskItems = this.state.tasks.map((task) =>
+        <Task id={task.id} value={task.value} checked={task.checked} toggle={this.toggle}/>
+      );
       return (
         <div>
           {taskItems}

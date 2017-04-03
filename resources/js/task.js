@@ -16,27 +16,17 @@ function CheckBox(props) {
   );
 }
 
-class Task extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: false,
-      indentationLevel: Number(this.props.indent)
-    };
-    this.toggle = () => {
-      this.setState({checked: !this.state.checked});
-    };
-  }
-  render() {
-    const {checked} = this.state;
-
-    return (
-      <div className="task-container">
-        <CheckBox toggle={this.toggle} checked={checked}/>
-        <input type="text" className="task-text"/>
-      </div>
-    );
-  }
+function Task(props) {
+  const {checked} = props;
+  const {value} = props;
+  const {toggle} = props;
+  const {id} = props;
+  return (
+    <div className="task-container">
+      <CheckBox id={id} checked={checked} toggle={toggle}/>
+      <input type="text" className="task-text" value={value}/>
+    </div>
+  );
 }
 
 module.exports = Task;
