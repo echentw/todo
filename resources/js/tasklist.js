@@ -7,32 +7,47 @@ class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
+      tasks: null,
     };
-    this.addTask = () => {
-    };
+    this.fetchData();
   }
-  render() {
-    axios.get('/user/tasklist', {
+  fetchData() {
+    axios.get('/tasklist/get')
+      .then((response) => {
+        // this.setState({tasks: response.data.tasks});
+        this.setState({tasks: ['hi', 'sup', 'bye']});
+      })
+      .catch((error) => {
+        console.log('Error fetching tasks:', error);
+      });
+  }
+  save() {
+    axios.post('/tasklist/save', {
         params: {
-          ID: 12345
+          tasks: this.state.tasks,
         }
       })
       .then((response) => {
-        console.log(response);
+        const tasks = response.data.tasks;
+        const taskItems = tasks.map((taskText) => <Task/>);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    const tasks = ['task 1', 'task 2', 'task 3'];
-    const taskItems = tasks.map((taskText) => <Task/>);
-
-    return (
-      <div>
-        {taskItems}
-      </div>
-    );
+  }
+  render() {
+    if (this.state.tasks) {
+      const taskItems = this.state.tasks.map((taskText) => <Task/>);
+      return (
+        <div>
+          {taskItems}
+        </div>
+      )
+    } else {
+      return (
+        <div>Loading...</div>
+      );
+    }
   }
 }
 

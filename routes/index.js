@@ -28,14 +28,18 @@ router.get('/home', isAuthenticated, (req, res, next) => {
   res.render('home', {title: 'Todo', name: req.user.name});
 });
 
-router.get('/user/tasklist', isAuthenticated, (req, res, next) => {
+router.get('/tasklist/get', isAuthenticated, (req, res, next) => {
   User.findOne({_id: req.user._id}, (err, user) => {
     if (err) {
       res.send('oops error');
     } else {
-      res.send(user.tasks);
+      res.send({'tasks': user.tasks});
     }
   });
+});
+
+router.post('/tasklist/save', isAuthenticated, (req, res, next) => {
+  User.update({_id: req.user._id}, {$set: {tasks: req.params.tasks}});
 });
 
 module.exports = router;
