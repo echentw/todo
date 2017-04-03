@@ -49,7 +49,8 @@ app.use(passport.session());
 
 // Publicly served files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+app.use('/img', express.static(path.join(__dirname, 'resources', 'img')));
 
 app.use('/', index);
 
