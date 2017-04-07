@@ -1,8 +1,9 @@
 const React = require('react');
 
 function CheckBox(props) {
-  const toggle = props.toggle;
-  const checked = props.checked;
+  const {toggle} = props;
+  const {checked} = props;
+  const {id} = props;
 
   let imagePath;
   if (checked) {
@@ -12,7 +13,7 @@ function CheckBox(props) {
   }
 
   return (
-    <img className="checkbox" onClick={toggle} src={imagePath}/>
+    <img id={id} className="checkbox" onClick={toggle} src={imagePath}/>
   );
 }
 

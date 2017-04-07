@@ -1,5 +1,6 @@
 const React = require('react');
 const axios = require('axios');
+const _ = require('lodash');
 
 const Task = require('./task');
 
@@ -10,10 +11,12 @@ class TaskList extends React.Component {
       tasks: null,
     };
     this.fetchData();
+    this.toggle = this.toggle.bind(this);
   }
   fetchData() {
     axios.get('/tasklist/get')
       .then((response) => {
+        // TODO: uncomment this when ready to fetch from db
         // this.setState({tasks: response.data.tasks});
         this.setState({
           tasks: [
@@ -28,7 +31,10 @@ class TaskList extends React.Component {
       });
   }
   toggle(e) {
-    console.log(e);
+    const index = _.findIndex(this.state.tasks, {id: e.nativeEvent.target.id});
+    const newTasks = this.state.tasks;
+    newTasks[index].checked = !newTasks[index].checked;
+    this.setState({tasks: newTasks});
   }
   save() {
     axios.post('/tasklist/save', {
@@ -49,15 +55,9 @@ class TaskList extends React.Component {
       const taskItems = this.state.tasks.map((task) =>
         <Task id={task.id} value={task.value} checked={task.checked} toggle={this.toggle}/>
       );
-      return (
-        <div>
-          {taskItems}
-        </div>
-      )
+      return <div>{taskItems}</div>;
     } else {
-      return (
-        <div>Loading...</div>
-      );
+      return <div>Loading...</div>;
     }
   }
 }
