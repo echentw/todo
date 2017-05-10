@@ -1,1 +1,3 @@
-const app = require('./app.js');
+$(document).ready(() => {
+  $(document).foundation();
+});

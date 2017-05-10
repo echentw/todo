@@ -13,6 +13,8 @@ class TaskList extends React.Component {
     this.fetchData();
     this.toggle = this.toggle.bind(this);
   }
+
+  // Fetch tasks from the db and populate the tasklist.
   fetchData() {
     axios.get('/tasklist/get')
       .then((response) => {
@@ -30,12 +32,24 @@ class TaskList extends React.Component {
         console.log('Error fetching tasks:', error);
       });
   }
+
+  // Handle checking/unchecking the checkbox.
   toggle(e) {
-    const index = _.findIndex(this.state.tasks, {id: e.nativeEvent.target.id});
-    const newTasks = this.state.tasks;
-    newTasks[index].checked = !newTasks[index].checked;
-    this.setState({tasks: newTasks});
+    console.log(e.relatedTarget);
+    console.log(e.nativeEvent.target);
+    console.log(e);
+    // const index = _.findIndex(this.state.tasks, {id: e.nativeEvent.target.id});
+    // const newTasks = this.state.tasks;
+    // newTasks[index].checked = !newTasks[index].checked;
+    // this.setState({tasks: newTasks});
   }
+
+  // Handle changing the text of a task.
+  handleChange(e) {
+    // this.setState({value: e.target.value});
+  }
+
+  // Save the current tasks to the db.
   save() {
     axios.post('/tasklist/save', {
         params: {
@@ -50,10 +64,16 @@ class TaskList extends React.Component {
         console.log(error);
       });
   }
+
   render() {
     if (this.state.tasks) {
       const taskItems = this.state.tasks.map((task) =>
-        <Task id={task.id} value={task.value} checked={task.checked} toggle={this.toggle}/>
+        <Task id={task.id}
+          value={task.value}
+          checked={task.checked}
+          toggle={this.toggle}
+          handleChange={this.handleChange}
+        />
       );
       return <div>{taskItems}</div>;
     } else {
