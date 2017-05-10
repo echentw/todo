@@ -33,38 +33,34 @@ $sidebar-tasklist-height: 50px;
     background-color: cyan;
   }
 
-  .tasklists-container {
+  .new-task-container {
     position: absolute;
 
     top: $title-height;
     width: 100%;
-    height: calc(100% - #{$title-height} - #{$logout-height});
 
-    .sidebar-component {
-      position: relative;
+    background-color: magenta;
 
-      width: 100%;
-      height: $sidebar-tasklist-height;
-    }
+    text-align: center;
+    vertical-align: middle;
+    line-height: $sidebar-tasklist-height;
+    font-size: 24pt;
+    color: black;
+  }
 
-    .new-task-container {
-      @extend .sidebar-component;
-      background-color: magenta;
+  .tasklists-container {
+    position: absolute;
 
-      //////////////////////////////
-      // This block will probs be deleted in the future
-      // border-style: solid;
-      // border-color: black;
-      // border-width: 1px;
-      text-align: center;
-      vertical-align: middle;
-      line-height: $sidebar-tasklist-height;
-      font-size: 18pt;
-      //////////////////////////////
-    }
+    top: calc(#{$title-height} + #{$sidebar-tasklist-height});
+    width: 100%;
+    height: calc(100% - #{$title-height} - #{$logout-height} - #{$sidebar-tasklist-height});
+
+    overflow-y: auto;
 
     .tasklist-container {
-      @extend .sidebar-component;
+      position: relative;
+      width: 100%;
+      height: $sidebar-tasklist-height;
 
       background-color: blue;
 
@@ -83,16 +79,10 @@ $sidebar-tasklist-height: 50px;
         height: 100%;
         width: 100%;
 
-        //////////////////////////////
-        // This block will probs be deleted in the future
-        // border-style: solid;
-        // border-color: black;
-        // border-width: 1px;
         text-align: center;
         vertical-align: middle;
         line-height: $sidebar-tasklist-height;
         font-size: 18pt;
-        //////////////////////////////
       }
     }
 
@@ -105,13 +95,10 @@ $sidebar-tasklist-height: 50px;
     width: 100%;
     height: $logout-height;
 
-    //////////////////////////////
-    // This block will probs be deleted in the future
     text-align: center;
     vertical-align: middle;
     line-height: $logout-height;
-    font-size: 28pt;
-    //////////////////////////////
+    font-size: 24pt;
 
     background-color: purple;
   }

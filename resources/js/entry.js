@@ -1,3 +1,4 @@
 $(document).ready(() => {
-  $(document).foundation();
+  // $(document).foundation();
+  console.log('hi');
 });

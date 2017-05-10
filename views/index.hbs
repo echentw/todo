@@ -1,8 +1,11 @@
 <div id="sidebar">
   <div class="title-container">Todo</div>
-  <div class="tasklists-container">
-    <div class="new-task-container">New Task</div>
 
+  <div class="new-task-container">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+  </div>
+
+  <div class="tasklists-container">
     <div class="tasklist-container">
       <div class="border-top"></div>
       <div class="tasklist-name">Tasklist 1</div>
@@ -11,10 +14,8 @@
       <div class="border-top"></div>
       <div class="tasklist-name">Tasklist 2</div>
     </div>
-    <div class="tasklist-container">
-      <div class="border-top"></div>
-      <div class="tasklist-name">Tasklist 3</div>
-    </div>
+
+    {{> tasklist-names}}
   </div>
 
   <div class="logout-container">Logout</div>
