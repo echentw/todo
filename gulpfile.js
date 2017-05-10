@@ -40,6 +40,14 @@ const paths = {
   }
 };
 
+gulp.task('default', ['build', 'server:start'], () => {
+  gulp.watch(paths.serverJS.files, ['server:restart']);
+  gulp.watch(paths.clientJS.files, ['babel']);
+  gulp.watch(paths.styles.files, ['sass']);
+});
+
+gulp.task('build', ['sass', 'babel']);
+
 gulp.task('clean', function () {
   gulp.src(paths.clean.paths, {read: false})
     .pipe(clean());
@@ -57,40 +65,35 @@ gulp.task('server:restart', () => {
   server.restart();
 });
 
-gulp.task('default', ['build', 'server:start'], () => {
-  gulp.watch(paths.serverJS.files, ['server:restart']);
-  gulp.watch(paths.clientJS.files, ['babel']);
-  gulp.watch(paths.styles.files, ['sass']);
-});
-
-gulp.task('build', ['sass', 'babel']);
-
 gulp.task('babel', () => {
+  const webpacky = webpack({
+    module: {
+      loaders: [{
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'stage-0', 'react'],
+        },
+      }]
+    },
+    output: {
+      filename: paths.clientJS.output,
+    },
+  });
   gulp.src(paths.clientJS.entry)
-    .pipe(webpack({
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: /node_modules/,
-          query: {
-            presets: ['es2015', 'stage-0', 'react'],
-          },
-        }]
-      },
-      output: {
-        filename: paths.clientJS.output,
-      }
-    }))
+    .pipe(webpacky)
     .pipe(gulp.dest(paths.clientJS.dest));
 });
 
 gulp.task('sass', () => {
+  const sassy = sass({
+    outputStyle: 'expanded',
+    sourceComemnts: 'map',
+    includePaths: paths.styles.includePaths,
+  });
+  sassy.on('error', (error) => console.log(error));
   gulp.src(paths.styles.files)
-    .pipe(sass({
-      outputStyle: 'compressed',
-      sourceComments: 'map',
-      includePaths: paths.styles.includePaths
-    }))
+    .pipe(sassy)
     .pipe(gulp.dest(paths.styles.dest));
 });
