@@ -5,6 +5,7 @@
 $sidebar-width: 400px;
 $title-height: 80px;
 $logout-height: 50px;
+$sidebar-tasklist-height: 50px;
 
 #sidebar {
   position: absolute;
@@ -38,6 +39,27 @@ $logout-height: 50px;
     top: $title-height;
     width: 100%;
     height: calc(100% - #{$title-height} - #{$logout-height});
+
+    .tasklist-container, .new-task-container {
+      position: relative;
+
+      width: 100%;
+      height: $sidebar-tasklist-height;
+
+      //////////////////////////////
+      // This block will probs be deleted in the future
+      border-style: solid;
+      border-color: black;
+      border-width: 1px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: $sidebar-tasklist-height;
+      font-size: 18pt;
+      //////////////////////////////
+
+      background-color: cyan;
+    }
+
   }
 
   .logout-container {
@@ -46,6 +68,14 @@ $logout-height: 50px;
     bottom: 0px;
     width: 100%;
     height: $logout-height;
+
+    //////////////////////////////
+    // This block will probs be deleted in the future
+    text-align: center;
+    vertical-align: middle;
+    line-height: $logout-height;
+    font-size: 28pt;
+    //////////////////////////////
 
     background-color: purple;
   }
