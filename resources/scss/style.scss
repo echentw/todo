@@ -30,7 +30,7 @@ $sidebar-tasklist-height: 50px;
     font-size: 36pt;
     //////////////////////////////
 
-    background-color: blue;
+    background-color: cyan;
   }
 
   .tasklists-container {
@@ -40,24 +40,60 @@ $sidebar-tasklist-height: 50px;
     width: 100%;
     height: calc(100% - #{$title-height} - #{$logout-height});
 
-    .tasklist-container, .new-task-container {
+    .sidebar-component {
       position: relative;
 
       width: 100%;
       height: $sidebar-tasklist-height;
+    }
+
+    .new-task-container {
+      @extend .sidebar-component;
+      background-color: magenta;
 
       //////////////////////////////
       // This block will probs be deleted in the future
-      border-style: solid;
-      border-color: black;
-      border-width: 1px;
+      // border-style: solid;
+      // border-color: black;
+      // border-width: 1px;
       text-align: center;
       vertical-align: middle;
       line-height: $sidebar-tasklist-height;
       font-size: 18pt;
       //////////////////////////////
+    }
 
-      background-color: cyan;
+    .tasklist-container {
+      @extend .sidebar-component;
+
+      background-color: blue;
+
+      .border-top {
+        position: absolute;
+        left: 10%;
+        right: 10%;
+
+        border-top-style: solid;
+        border-color: lightgrey;
+        border-width: 1px;
+      }
+
+      .tasklist-name {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+
+        //////////////////////////////
+        // This block will probs be deleted in the future
+        // border-style: solid;
+        // border-color: black;
+        // border-width: 1px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: $sidebar-tasklist-height;
+        font-size: 18pt;
+        //////////////////////////////
+      }
     }
 
   }
