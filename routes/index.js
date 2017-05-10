@@ -6,12 +6,16 @@ const isAuthenticated = require('../config/passport').isAuthenticated;
 const User = require('../schemas/user');
 
 router.get('/', (req, res, next) => {
-  if (req.isAuthenticated()) {
-    res.render('index', {title: 'Todo', name: req.user.name});
-  } else {
-    res.render('index', {title: 'Todo'});
-  }
+  res.render('index');
 });
+
+// router.get('/', (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     res.render('index', {title: 'Todo', name: req.user.name});
+//   } else {
+//     res.render('index', {title: 'Todo'});
+//   }
+// });
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
 

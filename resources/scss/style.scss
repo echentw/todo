@@ -2,41 +2,61 @@
 
 @include foundation-everything;
 
-.home-container {
-  background-color: lightyellow;
-  margin: 10px 10px;
+$sidebar-width: 400px;
+$title-height: 80px;
+$logout-height: 50px;
+
+#sidebar {
+  position: absolute;
+
+  left: 0px;
+  width: $sidebar-width;
+
+  height: 100%;
+  background-color: green;
+
+  .title-container {
+    position: absolute;
+
+    width: 100%;
+    height: $title-height;
+
+    //////////////////////////////
+    // This block will probs be deleted in the future
+    text-align: center;
+    vertical-align: middle;
+    line-height: $title-height;
+    font-size: 36pt;
+    //////////////////////////////
+
+    background-color: blue;
+  }
+
+  .tasklists-container {
+    position: absolute;
+
+    top: $title-height;
+    width: 100%;
+    height: calc(100% - #{$title-height} - #{$logout-height});
+  }
+
+  .logout-container {
+    position: absolute;
+
+    bottom: 0px;
+    width: 100%;
+    height: $logout-height;
+
+    background-color: purple;
+  }
 }
 
-.task-container {
-  position: relative;
+#tasks {
+  position: absolute;
 
-  .checkbox {
-    position: absolute;
-    top: 0px;
+  left: $sidebar-width;
+  width: calc(100% - #{$sidebar-width});
 
-    display: inline;
-    z-index: 1;
-
-    height: 30px;
-    width: 30px;
-  }
-  .task-text {
-    position: relative;
-    top: 0px;
-
-    display: inline;
-    z-index: 0;
-
-    border: none;
-
-    min-height: 30px;
-    height: 30px;
-    width: 1000px;
-    margin: 0px 0px;
-
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 30px;
-    padding-right: 10px;
-  }
+  height: 100%;
+  background-color: red;
 }
