@@ -1,4 +1,9 @@
 $(document).ready(() => {
   // $(document).foundation();
-  console.log('hi');
+
+  $('.new-task-container').hover(() => {
+    $('.shine').addClass('start');
+  }, () => {
+    $('.shine').removeClass('start');
+  });
 });

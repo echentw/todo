@@ -1,0 +1,13 @@
+#sidebar {
+  .new-task-container {
+    -webkit-transition-duration: 0.5s; /* Safari */
+            transition-duration: 0.5s;
+
+    -webkit-transition-property: background-color;
+            transition-property: background-color;
+
+    &:hover {
+      background-color: blueviolet;
+    }
+  }
+}

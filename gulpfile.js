@@ -11,7 +11,7 @@ const paths = {
       './resources/scss',
       './bower_components/foundation-sites/scss',
     ],
-    dest: './public/css',
+    dest: './public/css/',
   },
   clientJS: {
     files: './resources/js/**/*.js',
