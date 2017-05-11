@@ -81,6 +81,7 @@ gulp.task('babel', () => {
       filename: paths.clientJS.output,
     },
   });
+  webpacky.on('error', (error) => console.log(error));
   gulp.src(paths.clientJS.entry)
     .pipe(webpacky)
     .pipe(gulp.dest(paths.clientJS.dest));
