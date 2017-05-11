@@ -1,13 +1,29 @@
+$fade-duration: 0.5s;
+
 #sidebar {
   .new-task-container {
-    -webkit-transition-duration: 0.5s; /* Safari */
-            transition-duration: 0.5s;
+    -webkit-transition-duration: $fade-duration;
+            transition-duration: $fade-duration;
 
     -webkit-transition-property: background-color;
             transition-property: background-color;
 
     &:hover {
       background-color: blueviolet;
+    }
+  }
+
+  .tasklists-container {
+    .tasklist-container {
+      -webkit-transition-duration: $fade-duration;
+              transition-duration: $fade-duration;
+
+      -webkit-transition-property: background-color;
+              transition-property: background-color;
+
+      &:hover {
+        background-color: blueviolet;
+      }
     }
   }
 }

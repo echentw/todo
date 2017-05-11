@@ -1,4 +1,4 @@
-$animation-time: 0.5s;
+$animation-time: 0.7s;
 $max-opacity: 0.2;
 
 .shine {
@@ -101,7 +101,7 @@ $max-opacity: 0.2;
   5% {opacity: 0.0}
   48% {opacity: $max-opacity}
   80% {opacity: 0.0}
-  100% { left: 82%}
+  100% { left: 75%}
 }
 
 @-webkit-keyframes move {
@@ -109,7 +109,7 @@ $max-opacity: 0.2;
   5% {opacity: 0.0}
   48% {opacity: $max-opacity}
   80% {opacity: 0.0}
-  100% { left: 82%}
+  100% { left: 75%}
 }
 
 @-moz-keyframes move {
@@ -125,7 +125,7 @@ $max-opacity: 0.2;
   5% {opacity: 0.0}
   48% {opacity: $max-opacity}
   80% {opacity: 0.0}
-  100% { left: 82%}
+  100% { left: 75%}
 }
 
 @-o-keyframes move {
@@ -133,5 +133,5 @@ $max-opacity: 0.2;
   5% {opacity: 0.0}
   48% {opacity: $max-opacity}
   80% {opacity: 0.0}
-  100% { left: 82%}
+  100% { left: 75%}
 }

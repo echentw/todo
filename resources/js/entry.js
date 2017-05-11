@@ -1,9 +1,15 @@
 $(document).ready(() => {
-  // $(document).foundation();
+  $('.new-task-container').mouseenter((event) => {
+    $(event.target).children('.shine').addClass('start');
+    setTimeout(() => {
+      $(event.target).children('.shine').removeClass('start');
+    }, 700);
+  });
 
-  $('.new-task-container').hover(() => {
-    $('.shine').addClass('start');
-  }, () => {
-    $('.shine').removeClass('start');
+  $('.tasklist-container').mouseenter((event) => {
+    $(event.target).parent().children('.shine').addClass('start');
+    setTimeout(() => {
+      $(event.target).parent().children('.shine').removeClass('start');
+    }, 700);
   });
 });
