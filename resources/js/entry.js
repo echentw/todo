@@ -12,4 +12,6 @@ $(document).ready(() => {
       $(event.target).parent().children('.shine').removeClass('start');
     }, 700);
   });
+
+  require('./app');
 });
