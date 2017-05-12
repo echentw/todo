@@ -3,10 +3,6 @@ $title-height: 80px;
 $logout-height: 50px;
 $sidebar-tasklist-height: 50px;
 
-body {
-  margin: 0px 0px;
-}
-
 #sidebar {
   position: absolute;
 
@@ -103,14 +99,4 @@ body {
 
     background-color: purple;
   }
-}
-
-#tasks {
-  position: absolute;
-
-  left: $sidebar-width;
-  width: calc(100% - #{$sidebar-width});
-
-  height: 100%;
-  background-color: red;
 }

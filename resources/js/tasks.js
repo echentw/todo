@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom');
 
 const Component = React.Component;
 
+const LIST_NAME = 'Tasklist 1';
 const TASKS = [
   {
     'id': 'jahb',
@@ -29,10 +30,18 @@ function Task(props) {
   );
 }
 
+function ListName(props) {
+  const {name} = props;
+  return (
+    <div className="tasklist-name">{name}</div>
+  );
+}
+
 class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: props.name,
       tasks: props.tasks,
     };
   }
@@ -43,6 +52,7 @@ class TaskList extends Component {
     });
     return (
       <div className="tasks-container">
+        <ListName name={this.state.name} />
         {tasks}
       </div>
     );
@@ -52,7 +62,7 @@ class TaskList extends Component {
 class Application extends Component {
   render() {
     return (
-      <TaskList tasks={TASKS} />
+      <TaskList tasks={TASKS} name={LIST_NAME} />
     );
   }
 }

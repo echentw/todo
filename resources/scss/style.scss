@@ -1,4 +1,9 @@
-@import './layout';
+@import './sidebar';
+@import './tasks';
 
 @import './animations/shiny';
 @import './animations/fade';
+
+body {
+  margin: 0px 0px;
+}

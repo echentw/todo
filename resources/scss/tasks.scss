@@ -1,0 +1,23 @@
+$sidebar-width: 350px;
+
+#tasks {
+  position: absolute;
+
+  left: $sidebar-width;
+  width: calc(100% - #{$sidebar-width});
+
+  height: 100%;
+  background-color: red;
+
+  box-sizing: border-box;
+  padding: 30px;
+
+  .tasks-container {
+    background-color: yellow;
+
+    .task-container {
+
+    }
+
+  }
+}
