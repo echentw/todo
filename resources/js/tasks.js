@@ -19,21 +19,21 @@ const TASKS = [
   },
 ];
 
+function ListName(props) {
+  const {name} = props;
+  return (
+    <textarea className="tasklist-name">{name}</textarea>
+  );
+}
+
 function Task(props) {
   const {taskText} = props;
   return (
     <div className="task-container">
-      <div className="checkbox"></div>
-      <div className="task-text">{taskText}</div>
+      <input type="checkbox"  className="checkbox" />
+      <textarea className="task-text">{taskText}</textarea>
       <div className="more-info"></div>
     </div>
-  );
-}
-
-function ListName(props) {
-  const {name} = props;
-  return (
-    <div className="tasklist-name">{name}</div>
   );
 }
 

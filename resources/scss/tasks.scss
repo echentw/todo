@@ -1,3 +1,5 @@
+@import './modules/browser-compatibility';
+
 $sidebar-width: 350px;
 
 #tasks {
@@ -9,15 +11,60 @@ $sidebar-width: 350px;
   height: 100%;
   background-color: red;
 
-  box-sizing: border-box;
+  @extend .cross-browser-border-box;
   padding: 30px;
 
   .tasks-container {
-    background-color: yellow;
+    @extend .cross-browser-border-box;
 
-    .task-container {
+    padding: 10px;
 
+    background-color: orange;
+
+    .tasklist-name {
+      @extend .cross-browser-border-box;
+      display: block;
+      resize: none;
+      border-style: none;
+
+      background-color: yellow;
+
+      height: 50px;
+      width: 100%;
+
+      text-align: center;
+      font-size: 28px;
+
+      resize: none;
+      border-style: none;
     }
 
+    .task-container {
+      position: relative;
+
+      height: 35px;
+      width: 100%;
+
+      $checkbox-width: 30px;
+
+      .checkbox {
+      }
+
+      .task-text {
+        @extend .cross-browser-border-box;
+        display: block;
+        resize: none;
+        border-style: none;
+
+        font-size: 18px;
+
+        height: 100%;
+        width: calc(100% - #{$checkbox-width});
+
+        position: absolute;
+        left: $checkbox-width;
+        top: 0px;
+      }
+    }
   }
 }
