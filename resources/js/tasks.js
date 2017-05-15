@@ -5,24 +5,26 @@ const Component = React.Component;
 
 const LIST_NAME = 'Tasklist 1';
 const TASKS = [
-  {
-    'id': 'jahb',
-    'text': 'milk the cow for top quality milk',
-  },
-  {
-    'id': 'nbmv',
-    'text': 'visit chicken farm and acquire super large egg',
-  },
-  {
-    'id': 'aesw',
-    'text': 'get extra fine flour from Mill Lane Mill',
-  },
+  {'id': 'bbba', 'text': 'milk the cow for top quality milk'},
+  {'id': 'bbbb', 'text': 'visit chicken farm and acquire super large egg'},
+  {'id': 'bbbc', 'text': 'get extra fine flour from Mill Lane Mill'},
+  {'id': 'bbbd', 'text': 'something'},
+  {'id': 'bbbe', 'text': 'something'},
+  {'id': 'bbbf', 'text': 'something'},
+  {'id': 'bbbg', 'text': 'something'},
+  {'id': 'bbbh', 'text': 'something'},
+  {'id': 'bbbi', 'text': 'something'},
+  {'id': 'bbbj', 'text': 'something'},
+  {'id': 'bbbk', 'text': 'something'},
+  {'id': 'bbbl', 'text': 'something'},
 ];
 
 function ListName(props) {
   const {name} = props;
   return (
-    <textarea className="tasklist-name">{name}</textarea>
+    <div className="tasklist-name-container">
+      <textarea className="tasklist-name">{name}</textarea>
+    </div>
   );
 }
 
@@ -30,7 +32,10 @@ function Task(props) {
   const {taskText} = props;
   return (
     <div className="task-container">
-      <input type="checkbox"  className="checkbox" />
+      <div className="checkbox-container">
+        <input type="checkbox"  className="checkbox" />
+        <label></label>
+      </div>
       <textarea className="task-text">{taskText}</textarea>
       <div className="more-info"></div>
     </div>
