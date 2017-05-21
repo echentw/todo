@@ -23,20 +23,21 @@ function ListName(props) {
   const {name} = props;
   return (
     <div className="tasklist-name-container">
-      <textarea className="tasklist-name">{name}</textarea>
+      <textarea className="tasklist-name" defaultValue={name}></textarea>
     </div>
   );
 }
 
 function Task(props) {
   const {taskText} = props;
+  const {id} = props;
   return (
     <div className="task-container">
       <div className="checkbox-container">
-        <input type="checkbox"  className="checkbox" />
-        <label></label>
+        <input type="checkbox"  className="checkbox" id={id}/>
+        <label htmlFor={id}></label>
       </div>
-      <textarea className="task-text">{taskText}</textarea>
+      <textarea className="task-text" defaultValue={taskText}></textarea>
       <div className="more-info"></div>
     </div>
   );
@@ -53,7 +54,7 @@ class TaskList extends Component {
 
   render() {
     const tasks = this.state.tasks.map((task) => {
-      return <Task key={task.id} taskText={task.text} />
+      return <Task key={task.id} taskText={task.text} id={task.id}/>
     });
     return (
       <div className="tasks-container">

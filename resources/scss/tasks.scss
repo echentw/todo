@@ -21,33 +21,64 @@ $sidebar-width: 350px;
 
     background-color: orange;
 
-    .tasklist-name {
+    .tasklist-name-container {
       @extend .cross-browser-border-box;
-      display: block;
-      resize: none;
-      border-style: none;
-
-      background-color: yellow;
-
       height: 50px;
       width: 100%;
 
-      text-align: center;
-      font-size: 28px;
+      padding: 5px;
+      background-color: green;
 
-      resize: none;
-      border-style: none;
+      .tasklist-name {
+        @extend .cross-browser-border-box;
+        display: block;
+        resize: none;
+        border-style: none;
+
+        background-color: yellow;
+
+        height: 100%;
+        width: 100%;
+
+        text-align: center;
+        font-size: 28px;
+
+        resize: none;
+        border-style: none;
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
 
     .task-container {
       position: relative;
 
-      height: 35px;
+      height: 36px;
       width: 100%;
 
       $checkbox-width: 30px;
+      $checkbox-margin-right: 10px;
 
-      .checkbox {
+      .checkbox-container {
+        position: relative;
+        top: 3px;
+
+        display: inline-block;
+        height: $checkbox-width;
+        width: $checkbox-width;
+
+        margin-right: $checkbox-margin-right;
+
+        background-color: white;
+
+        label {
+          display: block;
+          position: relative;
+          height: $checkbox-width;
+          width: $checkbox-width;
+        }
       }
 
       .task-text {
@@ -59,11 +90,15 @@ $sidebar-width: 350px;
         font-size: 18px;
 
         height: 100%;
-        width: calc(100% - #{$checkbox-width});
+        width: calc(100% - #{$checkbox-width} - #{$checkbox-margin-right});
 
         position: absolute;
-        left: $checkbox-width;
+        left: calc(#{$checkbox-width} + #{$checkbox-margin-right});
         top: 0px;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

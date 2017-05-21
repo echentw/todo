@@ -9,7 +9,8 @@ const paths = {
     files: './resources/scss/**/*.scss',
     includePaths: [
       './resources/scss',
-      './bower_components/foundation-sites/scss',
+      './bower_components/foundation-sites/scss/',
+      './bower_components/compass-sass-mixins/lib/',
     ],
     dest: './public/css/',
   },
