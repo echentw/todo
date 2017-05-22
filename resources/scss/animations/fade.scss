@@ -1,3 +1,5 @@
+@import '../modules/colors';
+
 $fade-duration: 0.5s;
 
 #sidebar {
@@ -9,7 +11,7 @@ $fade-duration: 0.5s;
             transition-property: background-color;
 
     &:hover {
-      background-color: blueviolet;
+      background-color: $darkest-amber;
     }
   }
 
@@ -22,7 +24,7 @@ $fade-duration: 0.5s;
               transition-property: background-color;
 
       &:hover {
-        background-color: blueviolet;
+        background-color: $darkest-amber;
       }
     }
   }

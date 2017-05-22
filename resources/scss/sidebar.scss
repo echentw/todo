@@ -1,3 +1,5 @@
+@import './modules/colors';
+
 $sidebar-width: 350px;
 $title-height: 80px;
 $logout-height: 50px;
@@ -10,7 +12,7 @@ $sidebar-tasklist-height: 50px;
   width: $sidebar-width;
 
   height: 100%;
-  background-color: green;
+  background-color: $med-purple;
 
   .title-container {
     position: absolute;
@@ -26,7 +28,7 @@ $sidebar-tasklist-height: 50px;
     font-size: 36pt;
     //////////////////////////////
 
-    background-color: magenta;
+    background-color: $light-purple;
   }
 
   .new-task-container {
@@ -35,13 +37,13 @@ $sidebar-tasklist-height: 50px;
     top: $title-height;
     width: 100%;
 
-    background-color: blue;
+    background-color: $dark-purple;
 
     text-align: center;
     vertical-align: middle;
     line-height: $sidebar-tasklist-height;
     font-size: 24pt;
-    color: black;
+    color: white;
   }
 
   .tasklists-container {
@@ -59,7 +61,7 @@ $sidebar-tasklist-height: 50px;
       width: 100%;
       height: $sidebar-tasklist-height;
 
-      background-color: #aaaaaa;
+      background-color: $med-purple;
 
       .border-top {
         position: absolute;
@@ -97,6 +99,6 @@ $sidebar-tasklist-height: 50px;
     line-height: $logout-height;
     font-size: 24pt;
 
-    background-color: purple;
+    background-color: $dark-purple;
   }
 }
