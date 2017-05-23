@@ -25,7 +25,7 @@ function ListName(props) {
   const {name} = props;
   return (
     <div className="tasklist-name-container">
-      <textarea className="tasklist-name" defaultValue={name}></textarea>
+      <div contentEditable={true} className="tasklist-name">{name}</div>
     </div>
   );
 }
