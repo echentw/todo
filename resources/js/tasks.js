@@ -41,11 +41,15 @@ function Task(props) {
   return (
     <div className="task-container">
       <div className="checkbox-container">
-        <input type="checkbox" className="checkbox" id={id} checked={completed}/>
-        <label htmlFor={id} onClick={checkHandler}></label>
+        <input type="checkbox"
+               className="checkbox"
+               id={id}
+               checked={completed}
+               onChange={checkHandler}>
+        <label htmlFor={id}></label>
       </div>
-      <div className="task-text" contentEditable={true}>
-        <span className={'strikethrough-able' + strikethroughClass}>
+      <div className="task-text">
+        <span className={'strikethrough-able' + strikethroughClass} contentEditable={true}>
           {taskText}
         </span>
       </div>
@@ -66,7 +70,7 @@ class TaskList extends Component {
   }
 
   checkHandler(event) {
-    const id = event.target.getAttribute('for');
+    const id = event.target.getAttribute('id');
     const index = _.findIndex(this.state.tasks, {'id': id});
 
     let tasks = this.state.tasks;

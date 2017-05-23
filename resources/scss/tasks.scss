@@ -108,11 +108,13 @@ $sidebar-width: 350px;
 
         padding-top: 5px;
 
-        &:focus {
-          outline: none;
-          border-bottom-color: rgba(200, 200, 200, 0.5);
-          border-bottom-width: 2px;
-          border-bottom-style: solid;
+        .strikethrough-able {
+          &:focus {
+            outline: none;
+            border-bottom-color: rgba(200, 200, 200, 0.5);
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+          }
         }
       }
     }
