@@ -42,6 +42,15 @@ function Task(props) {
 
   const strikethroughClass = completed ? ' strikethrough' : '';
 
+  function focusDiv(event) {
+    event.target.childNodes[3].focus();
+  }
+
+  function focusInput(event) {
+    event.stopPropagation();
+    event.target.focus();
+  }
+
   // &zwnj is a zero-width non-joiner, it is needed to prevent the cursor from
   // behaving unexpectedly when taskText is the empty string.
   return (
@@ -54,11 +63,12 @@ function Task(props) {
                onChange={checkHandler}/>
         <label htmlFor={id}></label>
       </div>
-      <div className="task-text">
+      <div className="task-text" onClick={focusDiv}>
         &zwnj;
         <span className={'strikethrough-able' + strikethroughClass}
               contentEditable={true}
-              suppressContentEditableWarning={true}>
+              suppressContentEditableWarning={true}
+              onClick={focusInput}>
           {taskText}
         </span>
       </div>
