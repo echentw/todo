@@ -8,7 +8,7 @@ const Component = React.Component;
 const LIST_NAME = 'Tasklist 1';
 const TASKS = [
   {'id': 'bbba', 'completed': false, 'text': 'milk the cow for top quality milk'},
-  {'id': 'bbbb', 'completed': false, 'text': 'visit chicken farm and acquire super large egg'},
+  {'id': 'bbbb', 'completed': true, 'text': 'visit chicken farm and acquire super large egg'},
   {'id': 'bbbc', 'completed': false, 'text': 'get extra fine flour from Mill Lane Mill'},
   {'id': 'bbbd', 'completed': false, 'text': 'something'},
   {'id': 'bbbe', 'completed': false, 'text': 'something'},
@@ -41,7 +41,7 @@ function Task(props) {
   return (
     <div className="task-container">
       <div className="checkbox-container">
-        <input type="checkbox"  className="checkbox" id={id}/>
+        <input type="checkbox" className="checkbox" id={id} checked={completed}/>
         <label htmlFor={id} onClick={checkHandler}></label>
       </div>
       <div className="task-text" contentEditable={true}>
