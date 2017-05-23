@@ -61,7 +61,7 @@ $sidebar-width: 350px;
       background-color: white;
 
       $checkbox-width: 14px;
-      $checkbox-margin-top: 5px;
+      $checkbox-margin-top: 8px;
       $checkbox-margin-left: 8px;
       $checkbox-margin-right: 6px;
 
@@ -94,9 +94,8 @@ $sidebar-width: 350px;
 
       .task-text {
         @extend .cross-browser-border-box;
-        display: block;
-        resize: none;
-        border-style: none;
+
+        vertical-align: middle;
 
         font-size: 18px;
 
@@ -107,8 +106,13 @@ $sidebar-width: 350px;
         left: calc(#{$checkbox-width} + #{$checkbox-margin-left} + #{$checkbox-margin-right});
         top: 0px;
 
+        padding-top: 5px;
+
         &:focus {
           outline: none;
+          border-bottom-color: rgba(200, 200, 200, 0.5);
+          border-bottom-width: 2px;
+          border-bottom-style: solid;
         }
       }
     }

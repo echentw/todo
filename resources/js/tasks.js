@@ -1,22 +1,24 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+const _ = require('lodash');
+
 const Component = React.Component;
 
 const LIST_NAME = 'Tasklist 1';
 const TASKS = [
-  {'id': 'bbba', 'text': 'milk the cow for top quality milk'},
-  {'id': 'bbbb', 'text': 'visit chicken farm and acquire super large egg'},
-  {'id': 'bbbc', 'text': 'get extra fine flour from Mill Lane Mill'},
-  {'id': 'bbbd', 'text': 'something'},
-  {'id': 'bbbe', 'text': 'something'},
-  {'id': 'bbbf', 'text': 'something'},
-  {'id': 'bbbg', 'text': 'something'},
-  {'id': 'bbbh', 'text': 'something'},
-  {'id': 'bbbi', 'text': 'something'},
-  {'id': 'bbbj', 'text': 'something'},
-  {'id': 'bbbk', 'text': 'something'},
-  {'id': 'bbbl', 'text': 'something'},
+  {'id': 'bbba', 'completed': false, 'text': 'milk the cow for top quality milk'},
+  {'id': 'bbbb', 'completed': false, 'text': 'visit chicken farm and acquire super large egg'},
+  {'id': 'bbbc', 'completed': false, 'text': 'get extra fine flour from Mill Lane Mill'},
+  {'id': 'bbbd', 'completed': false, 'text': 'something'},
+  {'id': 'bbbe', 'completed': false, 'text': 'something'},
+  {'id': 'bbbf', 'completed': false, 'text': 'something'},
+  {'id': 'bbbg', 'completed': false, 'text': 'something'},
+  {'id': 'bbbh', 'completed': false, 'text': 'something'},
+  {'id': 'bbbi', 'completed': false, 'text': 'something'},
+  {'id': 'bbbj', 'completed': false, 'text': 'something'},
+  {'id': 'bbbk', 'completed': false, 'text': 'something'},
+  {'id': 'bbbl', 'completed': false, 'text': 'something'},
 ];
 
 function ListName(props) {
@@ -31,13 +33,22 @@ function ListName(props) {
 function Task(props) {
   const {taskText} = props;
   const {id} = props;
+  const {completed} = props;
+  const {checkHandler} = props;
+
+  const strikethroughClass = completed ? ' strikethrough' : '';
+
   return (
     <div className="task-container">
       <div className="checkbox-container">
         <input type="checkbox"  className="checkbox" id={id}/>
-        <label htmlFor={id}></label>
+        <label htmlFor={id} onClick={checkHandler}></label>
       </div>
-      <textarea className="task-text" defaultValue={taskText}></textarea>
+      <div className="task-text" contentEditable={true}>
+        <span className={'strikethrough-able' + strikethroughClass}>
+          {taskText}
+        </span>
+      </div>
       <div className="more-info"></div>
     </div>
   );
@@ -50,11 +61,28 @@ class TaskList extends Component {
       name: props.name,
       tasks: props.tasks,
     };
+
+    this.checkHandler = this.checkHandler.bind(this);
+  }
+
+  checkHandler(event) {
+    const id = event.target.getAttribute('for');
+    const index = _.findIndex(this.state.tasks, {'id': id});
+
+    let tasks = this.state.tasks;
+    tasks[index].completed = !tasks[index].completed;
+
+    this.setState({tasks: tasks});
   }
 
   render() {
     const tasks = this.state.tasks.map((task) => {
-      return <Task key={task.id} taskText={task.text} id={task.id}/>
+      return <Task key={task.id}
+                   taskText={task.text}
+                   id={task.id}
+                   completed={task.completed}
+                   checkHandler={this.checkHandler}
+             />
     });
     return (
       <div className="tasks-container">
