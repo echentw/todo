@@ -25,7 +25,11 @@ function ListName(props) {
   const {name} = props;
   return (
     <div className="tasklist-name-container">
-      <div contentEditable={true} className="tasklist-name">{name}</div>
+      <div contentEditable={true}
+           className="tasklist-name"
+           suppressContentEditableWarning={true}>
+        {name}
+      </div>
     </div>
   );
 }
@@ -38,6 +42,8 @@ function Task(props) {
 
   const strikethroughClass = completed ? ' strikethrough' : '';
 
+  // &zwnj is a zero-width non-joiner, it is needed to prevent the cursor from
+  // behaving unexpectedly when taskText is the empty string.
   return (
     <div className="task-container">
       <div className="checkbox-container">
@@ -45,11 +51,14 @@ function Task(props) {
                className="checkbox"
                id={id}
                checked={completed}
-               onChange={checkHandler}>
+               onChange={checkHandler}/>
         <label htmlFor={id}></label>
       </div>
       <div className="task-text">
-        <span className={'strikethrough-able' + strikethroughClass} contentEditable={true}>
+        &zwnj;
+        <span className={'strikethrough-able' + strikethroughClass}
+              contentEditable={true}
+              suppressContentEditableWarning={true}>
           {taskText}
         </span>
       </div>
