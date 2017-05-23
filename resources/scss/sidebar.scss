@@ -63,16 +63,6 @@ $sidebar-tasklist-height: 50px;
 
       background-color: $med-purple;
 
-      .border-top {
-        position: absolute;
-        left: 10%;
-        right: 10%;
-
-        border-top-style: solid;
-        border-color: lightgrey;
-        border-width: 1px;
-      }
-
       .tasklist-name {
         position: absolute;
         height: 100%;

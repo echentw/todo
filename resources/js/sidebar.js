@@ -28,7 +28,6 @@ function ListName(props) {
   const {name} = props;
   return (
     <div className="tasklist-container">
-      <div className="border-top"></div>
       <div className="tasklist-name">{name}</div>
       <i className="shine"></i>
     </div>
