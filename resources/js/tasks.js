@@ -117,7 +117,9 @@ class TaskList extends Component {
 
   blurHandler(event) {
     const id = event.target.parentNode.parentNode.childNodes[0].childNodes[0].getAttribute('id');
-    this.setState({focus: null});
+    if (id == this.state.focus) {
+      this.setState({focus: null});
+    }
   }
 
   render() {
