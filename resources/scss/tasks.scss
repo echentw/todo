@@ -60,10 +60,20 @@ $sidebar-width: 350px;
 
       background-color: white;
 
+      &:hover {
+        background-color: rgb(240, 240, 240);
+      }
+
+      &.focused {
+        background-color: $lightest-amber;
+      }
+
       $checkbox-width: 14px;
       $checkbox-margin-top: 8px;
       $checkbox-margin-left: 8px;
       $checkbox-margin-right: 6px;
+
+      $more-info-width: 40px;
 
       .checkbox-container {
         position: relative;
@@ -100,7 +110,7 @@ $sidebar-width: 350px;
         font-size: 18px;
 
         height: 100%;
-        width: calc(100% - #{$checkbox-width} - #{$checkbox-margin-left} - #{$checkbox-margin-right});
+        width: calc(100% - #{$checkbox-width} - #{$checkbox-margin-left} - #{$checkbox-margin-right} - #{$more-info-width});
 
         position: absolute;
         left: calc(#{$checkbox-width} + #{$checkbox-margin-left} + #{$checkbox-margin-right});
@@ -115,6 +125,20 @@ $sidebar-width: 350px;
             border-bottom-width: 2px;
             border-bottom-style: solid;
           }
+        }
+      }
+
+      .more-info {
+        position: absolute;
+        width: $more-info-width;
+        height: 100%;
+        right: 0px;
+        top: 10px;
+
+        .fa {
+          position: absolute;
+          right: 0px;
+          padding-right: 15px;
         }
       }
     }
