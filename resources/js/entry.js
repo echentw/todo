@@ -1,6 +1,11 @@
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+const Application = require('./app');
+
 $(document).ready(() => {
   require('./sidebar');
-  require('./tasks');
+  ReactDOM.render(<Application/>, document.getElementById('tasks'));
 
   $('.new-task-container').mouseenter((event) => {
     $(event.target).children('.shine').addClass('start');
