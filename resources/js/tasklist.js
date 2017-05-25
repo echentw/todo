@@ -42,13 +42,11 @@ class TaskList extends Component {
     this.setState({tasks: tasks});
   }
 
-  focusHandler(event) {
-    const id = event.target.parentNode.parentNode.childNodes[0].childNodes[0].getAttribute('id');
+  focusHandler(id) {
     this.setState({focus: id});
   }
 
-  blurHandler(event) {
-    const id = event.target.parentNode.parentNode.childNodes[0].childNodes[0].getAttribute('id');
+  blurHandler(id) {
     if (id == this.state.focus) {
       this.setState({focus: null});
     }
