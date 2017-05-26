@@ -2,6 +2,8 @@ const React = require('react');
 
 const Component = React.Component;
 
+const ui = require('./utils/ui');
+
 function CheckBox(props) {
   const {id} = props;
   const {completed} = props;
@@ -45,6 +47,7 @@ class TaskText extends Component {
   }
 
   callFocusHandler() {
+    ui.placeCaretAtEnd(this.textInput);
     this.focusHandler(this.state.id);
   }
 
