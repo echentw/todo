@@ -33,11 +33,19 @@ class TaskText extends Component {
 
     this.focusHandler = props.focusHandler;
     this.blurHandler = props.blurHandler;
-    this.keyDownHandler = props.keyDownHandler;
     this.upDownHandler = props.upDownHandler;
+
+    this.createTask = props.createTask;
+    this.deleteTask = props.deleteTask;
 
     this.callFocusHandler = this.callFocusHandler.bind(this);
     this.callBlurHandler = this.callBlurHandler.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.focused) {
+      this.textInput.focus();
+    }
   }
 
   componentDidUpdate() {
@@ -60,10 +68,6 @@ class TaskText extends Component {
     const {completed} = this.props;
     const {focused} = this.props;
 
-    const {focusHandler} = this.props;
-    const {blurHandler} = this.props;
-    const {upDownHandler} = this.props;
-
     const {taskText} = this.props;
 
     const ref = (input) => this.textInput = input;
@@ -72,14 +76,18 @@ class TaskText extends Component {
     const callKeyDownHandler = (event) => {
       if (event.keyCode == 13) {
         // pressed enter
-        console.log('pressed enter!');
+        event.preventDefault();
+        this.createTask(id);
       } else if (event.keyCode == 8) {
         // pressed backspace
-        console.log('pressed backspace');
+        if (this.textInput.innerHTML.length == 0) {
+          event.preventDefault();
+          this.deleteTask(id);
+        }
       } else if (event.keyCode == 38 || event.keyCode == 40) {
         // pressed up or down
         event.preventDefault();
-        upDownHandler(id, event);
+        this.upDownHandler(id, event);
       }
     };
 
@@ -123,10 +131,14 @@ class Task extends Component {
     const {id} = this.props;
     const {focused} = this.props;
     const {completed} = this.props;
+
     const {checkHandler} = this.props;
     const {focusHandler} = this.props;
     const {blurHandler} = this.props;
     const {upDownHandler} = this.props;
+
+    const {createTask} = this.props;
+    const {deleteTask} = this.props;
 
     const focusClass = focused ? ' focused' : '';
 
@@ -142,6 +154,8 @@ class Task extends Component {
                   focusHandler={focusHandler}
                   blurHandler={blurHandler}
                   upDownHandler={upDownHandler}
+                  createTask={createTask}
+                  deleteTask={deleteTask}
                   taskText={taskText} />
 
         <TaskInfo />

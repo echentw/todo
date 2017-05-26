@@ -43,6 +43,9 @@ class TaskList extends Component {
     this.focusHandler = this.focusHandler.bind(this);
     this.blurHandler = this.blurHandler.bind(this);
     this.upDownHandler = this.upDownHandler.bind(this);
+
+    this.createTask = this.createTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   checkHandler(event) {
@@ -83,9 +86,40 @@ class TaskList extends Component {
     }
   }
 
-  keyDownHandler(id, event) {
-    if (event.keyCode == 8) {
+  createTask(id) {
+    const index = _.findIndex(this.state.tasks, {'id': id});
+    const tasks = this.state.tasks;
+    const newId = idGen.get();
+    tasks.splice(index + 1, 0, {
+      'id': newId,
+      'completed': false,
+      'text': '',
+    });
+    this.setState({
+      tasks: tasks,
+      focus: newId,
+    });
+  }
+
+  deleteTask(id) {
+    const index = _.findIndex(this.state.tasks, {'id': id});
+    const tasks = this.state.tasks;
+
+    tasks.splice(index, 1);
+
+    let newId = null;
+    if (tasks.length > 0) {
+      if (index == 0) {
+        newId = tasks[0].id;
+      } else {
+        newId = tasks[index - 1].id;
+      }
     }
+
+    this.setState({
+      tasks: tasks,
+      focus: newId,
+    });
   }
 
   render() {
@@ -100,6 +134,8 @@ class TaskList extends Component {
                    focusHandler={this.focusHandler}
                    blurHandler={this.blurHandler}
                    upDownHandler={this.upDownHandler}
+                   createTask={this.createTask}
+                   deleteTask={this.deleteTask}
              />
     });
     return (
