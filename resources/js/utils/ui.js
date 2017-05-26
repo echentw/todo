@@ -37,13 +37,15 @@ function getCaretPosition(element) {
 function setCaretPosition(elem, pos) {
   elem.focus();
   const textNode = elem.firstChild;
-  const caret = pos; // insert caret after the 10th character say
-  const range = document.createRange();
-  range.setStart(textNode, caret);
-  range.setEnd(textNode, caret);
-  const sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
+  if (textNode != null) {
+    const caret = pos;
+    const range = document.createRange();
+    range.setStart(textNode, caret);
+    range.setEnd(textNode, caret);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
 }
 
 module.exports = {
