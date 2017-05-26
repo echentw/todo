@@ -1,6 +1,8 @@
 const React = require('react');
 const _ = require('lodash');
 
+const ui = require('./utils/ui');
+
 const IdGen = require('./utils/id-gen');
 const idGen = new IdGen();
 
@@ -86,15 +88,21 @@ class TaskList extends Component {
     }
   }
 
-  createTask(id) {
+  createTask(id, event) {
     const index = _.findIndex(this.state.tasks, {'id': id});
     const tasks = this.state.tasks;
+
+    const taskText = tasks[index].text;
+    const caretPosition = ui.getCaretPosition(event.target);
+    tasks[index].text = taskText.substring(0, caretPosition);
+
     const newId = idGen.get();
     tasks.splice(index + 1, 0, {
       'id': newId,
       'completed': false,
-      'text': '',
+      'text': taskText.substring(caretPosition, taskText.length),
     });
+
     this.setState({
       tasks: tasks,
       focus: newId,

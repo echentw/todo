@@ -45,6 +45,7 @@ class TaskText extends Component {
   componentDidMount() {
     if (this.props.focused) {
       this.textInput.focus();
+      ui.setCaretPosition(this.textInput, 0);
     }
   }
 
@@ -77,7 +78,7 @@ class TaskText extends Component {
       if (event.keyCode == 13) {
         // pressed enter
         event.preventDefault();
-        this.createTask(id);
+        this.createTask(id, event);
       } else if (event.keyCode == 8) {
         // pressed backspace
         if (this.textInput.innerHTML.length == 0) {

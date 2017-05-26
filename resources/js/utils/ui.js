@@ -16,6 +16,38 @@ function placeCaretAtEnd(el) {
   }
 }
 
+function getCaretPosition(element) {
+  let caretOffset = 0;
+  if (typeof window.getSelection != "undefined") {
+    const range = window.getSelection().getRangeAt(0);
+    const preCaretRange = range.cloneRange();
+    preCaretRange.selectNodeContents(element);
+    preCaretRange.setEnd(range.endContainer, range.endOffset);
+    caretOffset = preCaretRange.toString().length;
+  } else if (typeof document.selection != "undefined" && document.selection.type != "Control") {
+    const textRange = document.selection.createRange();
+    const preCaretTextRange = document.body.createTextRange();
+    preCaretTextRange.moveToElementText(element);
+    preCaretTextRange.setEndPoint("EndToEnd", textRange);
+    caretOffset = preCaretTextRange.text.length;
+  }
+  return caretOffset;
+}
+
+function setCaretPosition(elem, pos) {
+  elem.focus();
+  const textNode = elem.firstChild;
+  const caret = pos; // insert caret after the 10th character say
+  const range = document.createRange();
+  range.setStart(textNode, caret);
+  range.setEnd(textNode, caret);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
 module.exports = {
   placeCaretAtEnd: placeCaretAtEnd,
+  getCaretPosition: getCaretPosition,
+  setCaretPosition: setCaretPosition,
 };
