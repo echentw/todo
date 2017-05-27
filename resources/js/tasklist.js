@@ -39,6 +39,7 @@ class TaskList extends Component {
       name: name,
       tasks: tasks,
       focus: null,
+      caretPosition: null,
     };
 
     this.checkHandler = this.checkHandler.bind(this);
@@ -55,6 +56,11 @@ class TaskList extends Component {
     if (this.state.focus != newState.focus) {
       return true;
     }
+    for (let i = 0; i < this.state.tasks.length; ++i) {
+      if (this.state.tasks[i].completed != newState.tasks[i].completed) {
+        return true;
+      }
+    }
     return false;
   }
 
@@ -62,19 +68,32 @@ class TaskList extends Component {
     const id = event.target.getAttribute('id');
     const index = _.findIndex(this.state.tasks, {'id': id});
 
-    let tasks = this.state.tasks;
-    tasks[index].completed = !tasks[index].completed;
+    const tasks = this.state.tasks.slice();
+    tasks[index] = {
+      'id': tasks[index].id,
+      'completed': !tasks[index].completed,
+      'text': tasks[index].text,
+    };
 
-    this.setState({tasks: tasks});
+    this.setState({
+      tasks: tasks,
+      caretPosition: null,
+    });
   }
 
   focusHandler(id) {
-    this.setState({focus: id});
+    this.setState({
+      focus: id,
+      caretPosition: null,
+    });
   }
 
   blurHandler(id, elem) {
     if (id == this.state.focus) {
-      this.setState({focus: null});
+      this.setState({
+        focus: null,
+        caretPosition: null,
+      });
     }
   }
 
@@ -85,27 +104,42 @@ class TaskList extends Component {
       if (index < 1) {
         return;
       }
-      this.setState({focus: this.state.tasks[index - 1].id});
+      this.setState({
+        focus: this.state.tasks[index - 1].id,
+        caretPosition: null,
+      });
     } else if (event.keyCode == 40) {
       // pressed down
       const index = _.findIndex(this.state.tasks, {'id': id});
       if (index > this.state.tasks.length - 2) {
         return;
       }
-      this.setState({focus: this.state.tasks[index + 1].id});
+      this.setState({
+        focus: this.state.tasks[index + 1].id,
+        caretPosition: null,
+      });
     }
   }
 
   onChangeHandler(id, elem) {
-    const tasks = this.state.tasks;
+    const tasks = this.state.tasks.slice();
     const index = _.findIndex(this.state.tasks, {'id': id});
-    tasks[index].text = elem.innerHTML;
-    this.setState({tasks: tasks});
+
+    tasks[index] = {
+      'id': tasks[index].id,
+      'completed': tasks[index].completed,
+      'text': elem.innerHTML,
+    };
+
+    this.setState({
+      tasks: tasks,
+      caretPosition: null,
+    });
   }
 
   createTask(id, event) {
     const index = _.findIndex(this.state.tasks, {'id': id});
-    const tasks = this.state.tasks;
+    const tasks = this.state.tasks.slice();
 
     const taskText = tasks[index].text;
     const caretPosition = ui.getCaretPosition(event.target);
@@ -121,27 +155,36 @@ class TaskList extends Component {
     this.setState({
       tasks: tasks,
       focus: newId,
+      caretPosition: null,
     });
   }
 
   deleteTask(id) {
+    if (this.state.tasks.length == 1) {
+      return;
+    }
+
     const index = _.findIndex(this.state.tasks, {'id': id});
-    const tasks = this.state.tasks;
+    const tasks = this.state.tasks.slice();
+
+    const task = tasks[index];
 
     tasks.splice(index, 1);
 
-    let newId = null;
-    if (tasks.length > 0) {
-      if (index == 0) {
-        newId = tasks[0].id;
-      } else {
-        newId = tasks[index - 1].id;
-      }
-    }
+    const newIndex = (index == 0) ? 0 : index - 1;
+    const newId = tasks[newIndex].id;
+    const newCaretPosition = tasks[newIndex].text.length;
+
+    tasks[newIndex] = {
+      'id': tasks[newIndex].id,
+      'completed': tasks[newIndex].completed,
+      'text': tasks[newIndex].text + task.text,
+    };
 
     this.setState({
       tasks: tasks,
       focus: newId,
+      caretPosition: newCaretPosition,
     });
   }
 
@@ -153,6 +196,7 @@ class TaskList extends Component {
                    id={task.id}
                    focused={focused}
                    completed={task.completed}
+                   caretPosition={this.state.caretPosition}
                    checkHandler={this.checkHandler}
                    focusHandler={this.focusHandler}
                    blurHandler={this.blurHandler}

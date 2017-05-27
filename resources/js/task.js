@@ -58,7 +58,15 @@ class TaskText extends Component {
   }
 
   callFocusHandler() {
-    ui.placeCaretAtEnd(this.textInput);
+    if (this.props.focused) {
+      if (this.props.caretPosition != null) {
+        ui.setCaretPosition(this.textInput, this.props.caretPosition);
+      } else {
+        ui.placeCaretAtEnd(this.textInput);
+      }
+    } else {
+      ui.placeCaretAtEnd(this.textInput);
+    }
     this.focusHandler(this.state.id);
   }
 
@@ -87,7 +95,7 @@ class TaskText extends Component {
         this.createTask(id, event);
       } else if (event.keyCode == 8) {
         // pressed backspace
-        if (this.textInput.innerHTML.length == 0) {
+        if (ui.getCaretPosition(this.textInput) == 0) {
           event.preventDefault();
           this.deleteTask(id);
         }
@@ -139,6 +147,7 @@ class Task extends Component {
     const {id} = this.props;
     const {focused} = this.props;
     const {completed} = this.props;
+    const {caretPosition} = this.props;
 
     const {checkHandler} = this.props;
     const {focusHandler} = this.props;
@@ -160,6 +169,7 @@ class Task extends Component {
         <TaskText id={id}
                   completed={completed}
                   focused={focused}
+                  caretPosition={caretPosition}
                   focusHandler={focusHandler}
                   blurHandler={blurHandler}
                   upDownHandler={upDownHandler}
