@@ -34,12 +34,14 @@ class TaskText extends Component {
     this.focusHandler = props.focusHandler;
     this.blurHandler = props.blurHandler;
     this.upDownHandler = props.upDownHandler;
+    this.onChangeHandler = props.onChangeHandler;
 
     this.createTask = props.createTask;
     this.deleteTask = props.deleteTask;
 
     this.callFocusHandler = this.callFocusHandler.bind(this);
     this.callBlurHandler = this.callBlurHandler.bind(this);
+    this.callOnChangeHandler = this.callOnChangeHandler.bind(this);
   }
 
   componentDidMount() {
@@ -61,7 +63,11 @@ class TaskText extends Component {
   }
 
   callBlurHandler() {
-    this.blurHandler(this.state.id);
+    this.blurHandler(this.state.id, this.textInput);
+  }
+
+  callOnChangeHandler() {
+    this.onChangeHandler(this.state.id, this.textInput);
   }
 
   render() {
@@ -106,6 +112,7 @@ class TaskText extends Component {
               onFocus={this.callFocusHandler}
               onBlur={this.callBlurHandler}
               onKeyDown={callKeyDownHandler}
+              onInput={this.callOnChangeHandler}
               ref={ref}>
           {taskText}
         </span>
@@ -137,6 +144,7 @@ class Task extends Component {
     const {focusHandler} = this.props;
     const {blurHandler} = this.props;
     const {upDownHandler} = this.props;
+    const {onChangeHandler} = this.props;
 
     const {createTask} = this.props;
     const {deleteTask} = this.props;
@@ -155,6 +163,7 @@ class Task extends Component {
                   focusHandler={focusHandler}
                   blurHandler={blurHandler}
                   upDownHandler={upDownHandler}
+                  onChangeHandler={onChangeHandler}
                   createTask={createTask}
                   deleteTask={deleteTask}
                   taskText={taskText} />

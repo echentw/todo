@@ -45,9 +45,17 @@ class TaskList extends Component {
     this.focusHandler = this.focusHandler.bind(this);
     this.blurHandler = this.blurHandler.bind(this);
     this.upDownHandler = this.upDownHandler.bind(this);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
 
     this.createTask = this.createTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+  }
+
+  shouldComponentUpdate(newProps, newState) {
+    if (this.state.focus != newState.focus) {
+      return true;
+    }
+    return false;
   }
 
   checkHandler(event) {
@@ -64,7 +72,7 @@ class TaskList extends Component {
     this.setState({focus: id});
   }
 
-  blurHandler(id) {
+  blurHandler(id, elem) {
     if (id == this.state.focus) {
       this.setState({focus: null});
     }
@@ -86,6 +94,13 @@ class TaskList extends Component {
       }
       this.setState({focus: this.state.tasks[index + 1].id});
     }
+  }
+
+  onChangeHandler(id, elem) {
+    const tasks = this.state.tasks;
+    const index = _.findIndex(this.state.tasks, {'id': id});
+    tasks[index].text = elem.innerHTML;
+    this.setState({tasks: tasks});
   }
 
   createTask(id, event) {
@@ -142,6 +157,7 @@ class TaskList extends Component {
                    focusHandler={this.focusHandler}
                    blurHandler={this.blurHandler}
                    upDownHandler={this.upDownHandler}
+                   onChangeHandler={this.onChangeHandler}
                    createTask={this.createTask}
                    deleteTask={this.deleteTask}
              />
