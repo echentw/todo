@@ -45,7 +45,7 @@ class TaskList extends Component {
     this.checkHandler = this.checkHandler.bind(this);
     this.focusHandler = this.focusHandler.bind(this);
     this.blurHandler = this.blurHandler.bind(this);
-    this.upDownHandler = this.upDownHandler.bind(this);
+    this.arrowKeyHandler = this.arrowKeyHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
 
     this.createTask = this.createTask.bind(this);
@@ -97,27 +97,40 @@ class TaskList extends Component {
     }
   }
 
-  upDownHandler(id, event) {
+  arrowKeyHandler(id, event) {
+    const index = _.findIndex(this.state.tasks, {'id': id});
     if (event.keyCode == 38) {
       // pressed up
-      const index = _.findIndex(this.state.tasks, {'id': id});
-      if (index < 1) {
-        return;
+      if (index > 0) {
+        this.setState({
+          focus: this.state.tasks[index - 1].id,
+          caretPosition: null,
+        });
       }
-      this.setState({
-        focus: this.state.tasks[index - 1].id,
-        caretPosition: null,
-      });
     } else if (event.keyCode == 40) {
       // pressed down
-      const index = _.findIndex(this.state.tasks, {'id': id});
-      if (index > this.state.tasks.length - 2) {
-        return;
+      if (index < this.state.tasks.length - 1) {
+        this.setState({
+          focus: this.state.tasks[index + 1].id,
+          caretPosition: null,
+        });
       }
-      this.setState({
-        focus: this.state.tasks[index + 1].id,
-        caretPosition: null,
-      });
+    } else if (event.keyCode == 37) {
+      // pressed left
+      if (index > 0) {
+        this.setState({
+          focus: this.state.tasks[index - 1].id,
+          caretPosition: this.state.tasks[index - 1].text.length,
+        });
+      }
+    } else if (event.keyCode == 39) {
+      // pressed right
+      if (index < this.state.tasks.length - 1) {
+        this.setState({
+          focus: this.state.tasks[index + 1].id,
+          caretPosition: 0,
+        });
+      }
     }
   }
 
@@ -200,7 +213,7 @@ class TaskList extends Component {
                    checkHandler={this.checkHandler}
                    focusHandler={this.focusHandler}
                    blurHandler={this.blurHandler}
-                   upDownHandler={this.upDownHandler}
+                   arrowKeyHandler={this.arrowKeyHandler}
                    onChangeHandler={this.onChangeHandler}
                    createTask={this.createTask}
                    deleteTask={this.deleteTask}

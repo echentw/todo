@@ -33,7 +33,7 @@ class TaskText extends Component {
 
     this.focusHandler = props.focusHandler;
     this.blurHandler = props.blurHandler;
-    this.upDownHandler = props.upDownHandler;
+    this.arrowKeyHandler = props.arrowKeyHandler;
     this.onChangeHandler = props.onChangeHandler;
 
     this.createTask = props.createTask;
@@ -102,7 +102,19 @@ class TaskText extends Component {
       } else if (event.keyCode == 38 || event.keyCode == 40) {
         // pressed up or down
         event.preventDefault();
-        this.upDownHandler(id, event);
+        this.arrowKeyHandler(id, event);
+      } else if (event.keyCode == 37) {
+        // pressed left
+        if (ui.getCaretPosition(this.textInput) == 0) {
+          event.preventDefault();
+          this.arrowKeyHandler(id, event);
+        }
+      } else if (event.keyCode == 39) {
+        // pressed right
+        if (ui.getCaretPosition(this.textInput) == taskText.length) {
+          event.preventDefault();
+          this.arrowKeyHandler(id, event);
+        }
       }
     };
 
@@ -152,7 +164,7 @@ class Task extends Component {
     const {checkHandler} = this.props;
     const {focusHandler} = this.props;
     const {blurHandler} = this.props;
-    const {upDownHandler} = this.props;
+    const {arrowKeyHandler} = this.props;
     const {onChangeHandler} = this.props;
 
     const {createTask} = this.props;
@@ -172,7 +184,7 @@ class Task extends Component {
                   caretPosition={caretPosition}
                   focusHandler={focusHandler}
                   blurHandler={blurHandler}
-                  upDownHandler={upDownHandler}
+                  arrowKeyHandler={arrowKeyHandler}
                   onChangeHandler={onChangeHandler}
                   createTask={createTask}
                   deleteTask={deleteTask}

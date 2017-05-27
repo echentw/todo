@@ -12,7 +12,7 @@ const TASKS = [
   {'completed': true, 'text': 'create new task when pressing enter in the middle of task text'},
   {'completed': true, 'text': 'backspace at the beginning of a task text'},
   {'completed': false, 'text': 'string escaping bug'},
-  {'completed': false, 'text': 'pressing left/right at beginning/end of task text'},
+  {'completed': true, 'text': 'pressing left/right at beginning/end of task text'},
   {'completed': false, 'text': 'overflow problem for task list (vertical)'},
   {'completed': false, 'text': 'overflow problem for long task (horizontal)'},
   {'completed': false, 'text': 'choose a better font'},
