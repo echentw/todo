@@ -158,10 +158,24 @@ class TaskList extends Component {
     const caretPosition = ui.getCaretPosition(event.target);
     tasks[index].text = taskText.substring(0, caretPosition);
 
+    let oldCompleted = tasks[index].completed;
+    let newCompleted = false;
+    if (tasks[index].completed && caretPosition == 0) {
+      // pressing enter with the caret at the beginning of a completed task
+      oldCompleted = false;
+      newCompleted = true;
+    }
+
+    tasks[index] = {
+      'id': tasks[index].id,
+      'completed': oldCompleted,
+      'text': taskText.substring(0, caretPosition),
+    };
+
     const newId = idGen.get();
     tasks.splice(index + 1, 0, {
       'id': newId,
-      'completed': false,
+      'completed': newCompleted,
       'text': taskText.substring(caretPosition, taskText.length),
     });
 

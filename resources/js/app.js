@@ -9,7 +9,7 @@ const TASKS = [
   {'completed': false, 'text': 'keep track of caret in tasks (when pressing up/down)'},
   {'completed': false, 'text': 'overflow problem for task list (vertical)'},
   {'completed': true, 'text': 'overflow problem for long task (horizontal)'},
-  {'completed': false, 'text': 'press enter at beginning of task text'},
+  {'completed': true, 'text': 'press enter at beginning of task text'},
   {'completed': false, 'text': 'minor bug: strikethrough not long enough for long task texts'},
   {'completed': false, 'text': 'choose a better font'},
   {'completed': false, 'text': 'make the colors look better'},
