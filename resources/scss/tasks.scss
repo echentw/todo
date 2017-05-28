@@ -126,6 +126,9 @@ $sidebar-width: 350px;
           white-space: pre;
           overflow: hidden;
 
+          // This line is necessary to make the cursor appear when the task text is empty
+          padding-left: 1px;
+
           &:focus {
             outline: none;
             border-bottom-color: white;
