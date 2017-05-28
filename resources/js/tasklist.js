@@ -187,13 +187,19 @@ class TaskList extends Component {
   }
 
   deleteTask(id) {
+    // We always want there to be at least one task
     if (this.state.tasks.length == 1) {
       return;
     }
 
     const index = _.findIndex(this.state.tasks, {'id': id});
-    const tasks = this.state.tasks.slice();
 
+    // Do nothing if pressing backspace at the beginning of the first task
+    if (index == 0 && this.state.tasks[index].text.length > 0) {
+      return;
+    }
+
+    const tasks = this.state.tasks.slice();
     const task = tasks[index];
 
     tasks.splice(index, 1);
