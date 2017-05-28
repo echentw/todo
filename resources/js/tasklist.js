@@ -202,9 +202,16 @@ class TaskList extends Component {
     const newId = tasks[newIndex].id;
     const newCaretPosition = tasks[newIndex].text.length;
 
+    let newCompleted = tasks[newIndex].completed;
+    if (newCaretPosition == 0) {
+      // caret will end up at the beginning, meaning we want to preserve whether
+      // the current task has been completed or not
+      newCompleted = task.completed;
+    }
+
     tasks[newIndex] = {
       'id': tasks[newIndex].id,
-      'completed': tasks[newIndex].completed,
+      'completed': newCompleted,
       'text': tasks[newIndex].text + task.text,
     };
 
