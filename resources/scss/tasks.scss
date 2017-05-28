@@ -120,6 +120,12 @@ $sidebar-width: 350px;
         padding-top: 5px;
 
         .strikethrough-able {
+          white-space: pre-wrap;
+          white-space: -moz-pre-wrap;
+          white-space: -pre-wrap;
+          white-space: -o-pre-wrap;
+          word-wrap: break-word;
+
           &:focus {
             outline: none;
             border-bottom-color: white;
