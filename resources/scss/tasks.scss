@@ -121,12 +121,12 @@ $sidebar-width: 350px;
 
         .strikethrough-able {
           display: inline-block;
-          max-width: 100%;
 
           white-space: pre;
           overflow: hidden;
 
-          // This line is necessary to make the cursor appear when the task text is empty
+          // 1px is necessary to make the cursor appear when the task text is empty
+          max-width: calc(100% - 1px);
           padding-left: 1px;
 
           &:focus {
