@@ -247,9 +247,11 @@ class TaskList extends Component {
              />
     });
     return (
-      <div className="tasks-container">
+      <div className="tasklist-container">
         <TaskListName name={this.state.name} />
-        {tasks}
+        <div className="tasks-container">
+          {tasks}
+        </div>
       </div>
     );
   }

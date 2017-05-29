@@ -7,7 +7,7 @@ const TaskList = require('./tasklist');
 const TASKLIST_NAME = 'Tasklist 1';
 const TASKS = [
   {'completed': false, 'text': 'keep track of caret in tasks (when pressing up/down)'},
-  {'completed': false, 'text': 'overflow problem for task list (vertical)'},
+  {'completed': true, 'text': 'overflow problem for task list (vertical)'},
   {'completed': true, 'text': 'overflow problem for long task (horizontal)'},
   {'completed': true, 'text': 'press enter at beginning of task text'},
   {'completed': false, 'text': 'minor bug: strikethrough not long enough for long task texts'},

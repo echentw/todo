@@ -2,6 +2,7 @@
 @import './modules/colors';
 
 $sidebar-width: 350px;
+$tasklist-name-height: 50px;
 
 #tasks {
   position: absolute;
@@ -15,16 +16,18 @@ $sidebar-width: 350px;
   @extend .cross-browser-border-box;
   padding: 30px;
 
-  .tasks-container {
+  .tasklist-container {
     @extend .cross-browser-border-box;
 
     padding: 10px;
 
     background-color: orange;
 
+    height: 100%;
+
     .tasklist-name-container {
       @extend .cross-browser-border-box;
-      height: 50px;
+      height: $tasklist-name-height;
       width: 100%;
 
       padding: 5px;
@@ -53,102 +56,111 @@ $sidebar-width: 350px;
       }
     }
 
-    .task-container {
+    .tasks-container {
       position: relative;
+      height: calc(100% - #{$tasklist-name-height});
 
-      height: 36px;
-      width: 100%;
+      overflow-y: auto;
 
       background-color: white;
 
-      &:hover {
-        background-color: rgb(240, 240, 240);
-      }
-
-      &.focused {
-        background-color: $lightest-amber;
-      }
-
-      $checkbox-width: 14px;
-      $checkbox-margin-top: 8px;
-      $checkbox-margin-left: 8px;
-      $checkbox-margin-right: 6px;
-
-      $more-info-width: 40px;
-
-      .checkbox-container {
+      .task-container {
         position: relative;
 
-        z-index: 100;
-
-        display: inline-block;
-        height: $checkbox-width;
-        width: $checkbox-width;
-
-        margin-top: $checkbox-margin-top;
-        margin-left: $checkbox-margin-left;
-        margin-right: $checkbox-margin-right;
+        height: 36px;
+        width: 100%;
 
         background-color: white;
 
-        border-style: solid;
-        border-width: 1px;
-        border-color: black;
+        &:hover {
+          background-color: rgb(240, 240, 240);
+        }
 
-        label {
-          display: block;
+        &.focused {
+          background-color: $lightest-amber;
+        }
+
+        $checkbox-width: 14px;
+        $checkbox-margin-top: 8px;
+        $checkbox-margin-left: 8px;
+        $checkbox-margin-right: 6px;
+
+        $more-info-width: 40px;
+
+        .checkbox-container {
           position: relative;
+
+          z-index: 100;
+
+          display: inline-block;
           height: $checkbox-width;
           width: $checkbox-width;
-        }
-      }
 
-      .task-text {
-        @extend .cross-browser-border-box;
+          margin-top: $checkbox-margin-top;
+          margin-left: $checkbox-margin-left;
+          margin-right: $checkbox-margin-right;
 
-        vertical-align: middle;
+          background-color: white;
 
-        font-size: 18px;
+          border-style: solid;
+          border-width: 1px;
+          border-color: black;
 
-        height: 100%;
-        width: calc(100% - #{$checkbox-width} - #{$checkbox-margin-left} - #{$checkbox-margin-right} - #{$more-info-width});
-
-        position: absolute;
-        left: calc(#{$checkbox-width} + #{$checkbox-margin-left} + #{$checkbox-margin-right});
-        top: 0px;
-
-        padding-top: 5px;
-
-        .strikethrough-able {
-          display: inline-block;
-
-          white-space: pre;
-          overflow: hidden;
-
-          // 1px is necessary to make the cursor appear when the task text is empty
-          max-width: calc(100% - 1px);
-          padding-left: 1px;
-
-          &:focus {
-            outline: none;
-            border-bottom-color: white;
-            border-bottom-width: 2px;
-            border-bottom-style: solid;
+          label {
+            display: block;
+            position: relative;
+            height: $checkbox-width;
+            width: $checkbox-width;
           }
         }
-      }
 
-      .more-info {
-        position: absolute;
-        width: $more-info-width;
-        height: 100%;
-        right: 0px;
-        top: 10px;
+        .task-text {
+          @extend .cross-browser-border-box;
 
-        .fa {
+          vertical-align: middle;
+
+          font-size: 18px;
+
+          height: 100%;
+          width: calc(100% - #{$checkbox-width} - #{$checkbox-margin-left} - #{$checkbox-margin-right} - #{$more-info-width});
+
           position: absolute;
+          left: calc(#{$checkbox-width} + #{$checkbox-margin-left} + #{$checkbox-margin-right});
+          top: 0px;
+
+          padding-top: 5px;
+
+          .strikethrough-able {
+            display: inline-block;
+
+            white-space: pre;
+            overflow: hidden;
+
+            // 1px is necessary to make the cursor appear when the task text is empty
+            max-width: calc(100% - 1px);
+            padding-left: 1px;
+
+            &:focus {
+              outline: none;
+              border-bottom-color: white;
+              border-bottom-width: 2px;
+              border-bottom-style: solid;
+            }
+          }
+        }
+
+        .more-info {
+          position: absolute;
+          width: $more-info-width;
+          height: 100%;
           right: 0px;
-          padding-right: 15px;
+          top: 10px;
+
+          .fa {
+            position: absolute;
+            right: 0px;
+            padding-right: 15px;
+          }
         }
       }
     }

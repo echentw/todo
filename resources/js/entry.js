@@ -14,7 +14,7 @@ $(document).ready(() => {
     }, 700);
   });
 
-  $('.tasklist-container').mouseenter((event) => {
+  $('.tasklist-name-container').mouseenter((event) => {
     $(event.target).parent().children('.shine').addClass('start');
     setTimeout(() => {
       $(event.target).parent().children('.shine').removeClass('start');
