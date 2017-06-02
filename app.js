@@ -33,7 +33,6 @@ app.engine('.hbs', handlebars({
 }));
 app.set('view engine', '.hbs');
 
-// uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -48,8 +47,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Publicly served files
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use('/img', express.static(path.join(__dirname, 'resources', 'img')));
 
 app.use('/', index);

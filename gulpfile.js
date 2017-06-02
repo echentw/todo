@@ -3,21 +3,24 @@ const sass = require('gulp-sass');
 const webpack = require('webpack-stream');
 const server = require('gulp-develop-server');
 const clean = require('gulp-clean');
+const rename = require('gulp-rename');
 
 const paths = {
   styles: {
+    entry: './resources/scss/entry.scss',
     files: './resources/scss/**/*.scss',
     includePaths: [
       './resources/scss',
       './bower_components/foundation-sites/scss/',
       './bower_components/compass-sass-mixins/lib/',
     ],
-    dest: './public/css/',
+    dest: './build/css/',
+    output: 'bundle.css',
   },
   clientJS: {
-    files: './resources/js/**/*.js',
     entry: './resources/js/entry.js',
-    dest: './public/js/',
+    files: './resources/js/**/*.js',
+    dest: './build/js/',
     output: 'bundle.js',
   },
   serverJS: {
@@ -26,7 +29,7 @@ const paths = {
       '!node_modules/**',
       '!bin/**',
       '!resources/**',
-      '!public/**',
+      '!build/**',
     ]
   },
   scripts: {
@@ -34,7 +37,7 @@ const paths = {
   },
   clean: {
     paths: [
-      './public',
+      './build',
       './node_modules',
       './bower_components',
     ],
@@ -95,7 +98,8 @@ gulp.task('sass', () => {
     includePaths: paths.styles.includePaths,
   });
   sassy.on('error', (error) => console.log(error));
-  gulp.src(paths.styles.files)
+  gulp.src(paths.styles.entry)
     .pipe(sassy)
+    .pipe(rename(paths.styles.output))
     .pipe(gulp.dest(paths.styles.dest));
 });
