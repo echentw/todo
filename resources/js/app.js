@@ -2,7 +2,7 @@ const React = require('react');
 
 const Component = React.Component;
 
-const TaskList = require('./tasklist');
+const Tasklist = require('./tasklist');
 
 const TASKLIST_NAME = 'Tasklist 1';
 const TASKS = [
@@ -21,7 +21,7 @@ const TASKS = [
 class Application extends Component {
   render() {
     return (
-      <TaskList tasks={TASKS} name={TASKLIST_NAME} />
+      <Tasklist tasks={TASKS} name={TASKLIST_NAME} />
     );
   }
 }

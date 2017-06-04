@@ -11,7 +11,7 @@ const Component = React.Component;
 const Task = require('./task');
 const NewTask = require('./new-task');
 
-function TaskListName(props) {
+function TasklistName(props) {
   const {name} = props;
   return (
     <div className="tasklist-name-container">
@@ -24,7 +24,7 @@ function TaskListName(props) {
   );
 }
 
-class TaskList extends Component {
+class Tasklist extends Component {
   constructor(props) {
     super(props);
 
@@ -249,7 +249,7 @@ class TaskList extends Component {
     });
     return (
       <div className="tasklist-container">
-        <TaskListName name={this.state.name} />
+        <TasklistName name={this.state.name} />
         <div className="tasks-container">
           {tasks}
           <NewTask tasklist={this.state.tasks}
@@ -261,4 +261,4 @@ class TaskList extends Component {
   }
 }
 
-module.exports = TaskList;
+module.exports = Tasklist;
