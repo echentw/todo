@@ -161,13 +161,9 @@ $tasklist-name-height: 50px;
 
         opacity: 0;
 
-        &:hover {
+        &.focused {
           opacity: 1;
           background-color: rgb(240, 240, 240);
-        }
-
-        &.focused {
-          background-color: $lightest-amber;
         }
 
         .checkbox-container {

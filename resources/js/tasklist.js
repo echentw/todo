@@ -9,6 +9,7 @@ const idGen = new IdGen();
 const Component = React.Component;
 
 const Task = require('./task');
+const NewTask = require('./new-task');
 
 function TaskListName(props) {
   const {name} = props;
@@ -19,29 +20,6 @@ function TaskListName(props) {
            suppressContentEditableWarning={true}>
         {name}
       </div>
-    </div>
-  );
-}
-
-function NewTask(props) {
-  const {tasklist} = props;
-  const {createTask} = props;
-
-  const clickHandler = () => {
-    console.log('clicked!');
-    const id = tasklist[tasklist.length - 1].id;
-    createTask(id, null);
-  };
-
-  return (
-    <div className="new-task-container" onClick={clickHandler}>
-      <div className="checkbox-container">
-        <input type="checkbox"
-               className="checkbox"
-               checked={false}/>
-        <label></label>
-      </div>
-      <div className="new-task-text">+ new task</div>
     </div>
   );
 }
