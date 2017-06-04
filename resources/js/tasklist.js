@@ -23,6 +23,29 @@ function TaskListName(props) {
   );
 }
 
+function NewTask(props) {
+  const {tasklist} = props;
+  const {createTask} = props;
+
+  const clickHandler = () => {
+    console.log('clicked!');
+    const id = tasklist[tasklist.length - 1].id;
+    createTask(id, null);
+  };
+
+  return (
+    <div className="new-task-container" onClick={clickHandler}>
+      <div className="checkbox-container">
+        <input type="checkbox"
+               className="checkbox"
+               checked={false}/>
+        <label></label>
+      </div>
+      <div className="new-task-text">+ new task</div>
+    </div>
+  );
+}
+
 class TaskList extends Component {
   constructor(props) {
     super(props);
@@ -155,7 +178,7 @@ class TaskList extends Component {
     const tasks = this.state.tasks.slice();
 
     const taskText = tasks[index].text;
-    const caretPosition = ui.getCaretPosition(event.target);
+    const caretPosition = event ? ui.getCaretPosition(event.target) : taskText.length;
     tasks[index].text = taskText.substring(0, caretPosition);
 
     let oldCompleted = tasks[index].completed;
@@ -251,6 +274,9 @@ class TaskList extends Component {
         <TaskListName name={this.state.name} />
         <div className="tasks-container">
           {tasks}
+          <NewTask tasklist={this.state.tasks}
+                   createTask={this.createTask}
+          />
         </div>
       </div>
     );

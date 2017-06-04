@@ -26,7 +26,7 @@ $check-height: 14px;
   50% { height: $check-height; width: $check-width; }
 }
 
-.checkbox-container {
+.checkbox-container.animated {
   label {
     &:after {
       @include transform(scaleX(-1) rotate(180deg + -45deg));
@@ -48,10 +48,6 @@ $check-height: 14px;
     &:hover:after {
       border-color: lightgrey;
     }
-  }
-
-  input {
-    display: none;
   }
 
   input:checked + label:after {

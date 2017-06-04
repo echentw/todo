@@ -10,7 +10,7 @@ function CheckBox(props) {
   const {checkHandler} = props;
 
   return (
-    <div className="checkbox-container">
+    <div className="checkbox-container animated">
       <input type="checkbox"
              className="checkbox"
              id={id}

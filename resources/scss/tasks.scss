@@ -1,5 +1,6 @@
 @import './modules/browser-compatibility';
 @import './modules/colors';
+@import './modules/checkbox';
 
 $sidebar-width: 350px;
 $tasklist-name-height: 50px;
@@ -56,6 +57,11 @@ $tasklist-name-height: 50px;
       }
     }
 
+    $checkbox-width: 14px;
+    $checkbox-margin-top: 8px;
+    $checkbox-margin-left: 8px;
+    $checkbox-margin-right: 6px;
+
     .tasks-container {
       position: relative;
       height: calc(100% - #{$tasklist-name-height});
@@ -80,38 +86,19 @@ $tasklist-name-height: 50px;
           background-color: $lightest-amber;
         }
 
-        $checkbox-width: 14px;
-        $checkbox-margin-top: 8px;
-        $checkbox-margin-left: 8px;
-        $checkbox-margin-right: 6px;
-
         $more-info-width: 40px;
 
         .checkbox-container {
           position: relative;
-
           z-index: 100;
 
-          display: inline-block;
-          height: $checkbox-width;
-          width: $checkbox-width;
-
-          margin-top: $checkbox-margin-top;
-          margin-left: $checkbox-margin-left;
-          margin-right: $checkbox-margin-right;
-
-          background-color: white;
-
-          border-style: solid;
-          border-width: 1px;
-          border-color: black;
-
-          label {
-            display: block;
-            position: relative;
-            height: $checkbox-width;
-            width: $checkbox-width;
-          }
+          @include checkbox-skeleton(
+            black,
+            $checkbox-width,
+            $checkbox-margin-top,
+            $checkbox-margin-left,
+            $checkbox-margin-right
+          );
         }
 
         .task-text {
@@ -161,6 +148,56 @@ $tasklist-name-height: 50px;
             right: 0px;
             padding-right: 15px;
           }
+        }
+      }
+
+      .new-task-container {
+        position: relative;
+
+        height: 36px;
+        width: 100%;
+
+        background-color: white;
+
+        opacity: 0;
+
+        &:hover {
+          opacity: 1;
+          background-color: rgb(240, 240, 240);
+        }
+
+        &.focused {
+          background-color: $lightest-amber;
+        }
+
+        .checkbox-container {
+          position: relative;
+          z-index: 100;
+
+          @include checkbox-skeleton(
+            grey,
+            $checkbox-width,
+            $checkbox-margin-top,
+            $checkbox-margin-left,
+            $checkbox-margin-right
+          );
+        }
+
+        .new-task-text {
+          @extend .cross-browser-border-box;
+
+          vertical-align: middle;
+          color: grey;
+
+          font-size: 18px;
+
+          height: 100%;
+
+          position: absolute;
+          left: calc(#{$checkbox-width} + #{$checkbox-margin-left} + #{$checkbox-margin-right} + 5px);
+          top: 0px;
+
+          padding-top: 5px;
         }
       }
     }

@@ -1,0 +1,26 @@
+@mixin checkbox-skeleton($color, $width, $margin-top, $margin-left, $margin-right) {
+  display: inline-block;
+  height: $width;
+  width: $width;
+
+  margin-top: $margin-top;
+  margin-left: $margin-left;
+  margin-right: $margin-right;
+
+  background-color: white;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: $color;
+
+  label {
+    display: block;
+    position: relative;
+    height: $width;
+    width: $width;
+  }
+
+  input {
+    display: none;
+  }
+}
