@@ -15,8 +15,7 @@ class NewTask extends Component {
   }
 
   clickHandler() {
-    const id = this.props.tasklist[this.props.tasklist.length - 1].id;
-    this.createTask(id, null);
+    this.createTask();
     this.setState({focused: false});
   }
 

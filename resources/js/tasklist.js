@@ -152,11 +152,30 @@ class Tasklist extends Component {
   }
 
   createTask(id, event) {
+    // If this condition is true, then the user clicked on the '+ new task' button.
+    if (id == null && event == null) {
+      const tasks = this.state.tasks.slice();
+      const newId = idGen.get();
+      const newTask = {
+        'id': newId,
+        'completed': false,
+        'text': '',
+      };
+      tasks.push(newTask);
+      this.setState({
+        tasks: tasks,
+        focus: newId,
+        caretPosition: null,
+      });
+      return;
+    }
+
     const index = _.findIndex(this.state.tasks, {'id': id});
     const tasks = this.state.tasks.slice();
 
     const taskText = tasks[index].text;
-    const caretPosition = event ? ui.getCaretPosition(event.target) : taskText.length;
+    const caretPosition = ui.getCaretPosition(event.target);
+    // const caretPosition = event ? ui.getCaretPosition(event.target) : taskText.length;
     tasks[index].text = taskText.substring(0, caretPosition);
 
     let oldCompleted = tasks[index].completed;
@@ -190,6 +209,11 @@ class Tasklist extends Component {
   deleteTask(id) {
     // We always want there to be at least one task
     if (this.state.tasks.length == 1) {
+      this.setState({
+        tasks: [],
+        focus: null,
+        caretPosition: null,
+      });
       return;
     }
 
