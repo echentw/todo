@@ -37,41 +37,26 @@ class Task extends Component {
   }
 
   render() {
-    const {taskText} = this.props;
-    const {id} = this.props;
-    const {focused} = this.props;
-    const {completed} = this.props;
-    const {caretPosition} = this.props;
+    const {attributes} = this.props;
+    const {handlers} = this.props;
 
-    const {checkHandler} = this.props;
-    const {focusHandler} = this.props;
-    const {blurHandler} = this.props;
-    const {arrowKeyHandler} = this.props;
-    const {onChangeHandler} = this.props;
+    const focusClass = attributes.focused ? ' focused' : '';
 
-    const {createTask} = this.props;
-    const {deleteTask} = this.props;
-
-    const focusClass = focused ? ' focused' : '';
+    const newHandlers = {
+      'focusHandler': handlers.focusHandler,
+      'blurHandler': handlers.blurHandler,
+      'arrowKeyHandler': handlers.arrowKeyHandler,
+      'onChangeHandler': handlers.onChangeHandler,
+      'createTask': handlers.createTask,
+      'deleteTask': handlers.deleteTask,
+    };
 
     return (
       <div className={'task-container' + focusClass}>
-        <CheckBox id={id}
-                  completed={completed}
-                  checkHandler={checkHandler} />
-
-        <TaskText id={id}
-                  completed={completed}
-                  focused={focused}
-                  caretPosition={caretPosition}
-                  focusHandler={focusHandler}
-                  blurHandler={blurHandler}
-                  arrowKeyHandler={arrowKeyHandler}
-                  onChangeHandler={onChangeHandler}
-                  createTask={createTask}
-                  deleteTask={deleteTask}
-                  taskText={taskText} />
-
+        <CheckBox id={attributes.id}
+                  completed={attributes.completed}
+                  checkHandler={handlers.checkHandler} />
+        <TaskText attributes={attributes} handlers={newHandlers} />
         <TaskInfo />
       </div>
     );

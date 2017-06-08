@@ -253,23 +253,28 @@ class Tasklist extends Component {
   }
 
   render() {
+    const handlers = {
+      'checkHandler': this.checkHandler,
+      'focusHandler': this.focusHandler,
+      'blurHandler': this.blurHandler,
+      'arrowKeyHandler': this.arrowKeyHandler,
+      'onChangeHandler': this.onChangeHandler,
+      'createTask': this.createTask,
+      'deleteTask': this.deleteTask,
+    };
+
     const tasks = this.state.tasks.map((task) => {
       const focused = (this.state.focus == task.id);
-      return <Task key={task.id}
-                   taskText={task.text}
-                   id={task.id}
-                   focused={focused}
-                   completed={task.completed}
-                   caretPosition={this.state.caretPosition}
-                   checkHandler={this.checkHandler}
-                   focusHandler={this.focusHandler}
-                   blurHandler={this.blurHandler}
-                   arrowKeyHandler={this.arrowKeyHandler}
-                   onChangeHandler={this.onChangeHandler}
-                   createTask={this.createTask}
-                   deleteTask={this.deleteTask}
-             />
+      const attributes = {
+        'id': task.id,
+        'completed': task.completed,
+        'taskText': task.text,
+        'focused': focused,
+        'caretPosition': this.state.caretPosition,
+      };
+      return <Task key={task.id} attributes={attributes} handlers={handlers} />
     });
+
     return (
       <div className="tasklist-container">
         <TasklistName name={this.state.name} />

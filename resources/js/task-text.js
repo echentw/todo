@@ -7,20 +7,22 @@ const ui = require('./utils/ui');
 class TaskText extends Component {
   constructor(props) {
     super(props);
+    const {attributes} = props;
+    const {handlers} = props;
 
     this.textInput = null;
 
     this.state = {
-      id: props.id,
+      id: attributes.id,
     };
 
-    this.focusHandler = props.focusHandler;
-    this.blurHandler = props.blurHandler;
-    this.arrowKeyHandler = props.arrowKeyHandler;
-    this.onChangeHandler = props.onChangeHandler;
+    this.focusHandler = handlers.focusHandler;
+    this.blurHandler = handlers.blurHandler;
+    this.arrowKeyHandler = handlers.arrowKeyHandler;
+    this.onChangeHandler = handlers.onChangeHandler;
 
-    this.createTask = props.createTask;
-    this.deleteTask = props.deleteTask;
+    this.createTask = handlers.createTask;
+    this.deleteTask = handlers.deleteTask;
 
     this.callFocusHandler = this.callFocusHandler.bind(this);
     this.callBlurHandler = this.callBlurHandler.bind(this);
@@ -28,22 +30,23 @@ class TaskText extends Component {
   }
 
   componentDidMount() {
-    if (this.props.focused) {
+    if (this.props.attributes.focused) {
       this.textInput.focus();
       ui.setCaretPosition(this.textInput, 0);
     }
   }
 
   componentDidUpdate() {
-    if (this.props.focused) {
+    if (this.props.attributes.focused) {
       this.textInput.focus();
     }
   }
 
   callFocusHandler() {
-    if (this.props.focused) {
-      if (this.props.caretPosition != null) {
-        ui.setCaretPosition(this.textInput, this.props.caretPosition);
+    const {attributes} = this.props;
+    if (attributes.focused) {
+      if (attributes.caretPosition != null) {
+        ui.setCaretPosition(this.textInput, attributes.caretPosition);
       } else {
         ui.placeCaretAtEnd(this.textInput);
       }
@@ -62,11 +65,12 @@ class TaskText extends Component {
   }
 
   render() {
-    const {id} = this.props;
-    const {completed} = this.props;
-    const {focused} = this.props;
+    const {attributes} = this.props;
 
-    const {taskText} = this.props;
+    const {id} = attributes;
+    const {completed} = attributes;
+    const {taskText} = attributes;
+    const {focused} = attributes;
 
     const ref = (input) => this.textInput = input;
     const focus = () => this.textInput.focus();
