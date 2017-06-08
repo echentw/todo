@@ -1,11 +1,12 @@
 class IdGen {
-  constructor() {
-    this.id = 0;
+  constructor(prefix, start) {
+    this.prefix = prefix;
+    this.counter = start;
   }
 
   get() {
-    this.id += 1;
-    return 'id-' + this.id.toString();
+    this.counter += 1;
+    return this.prefix + this.counter.toString();
   }
 }
 

@@ -4,7 +4,7 @@ const _ = require('lodash');
 const ui = require('./utils/ui');
 
 const IdGen = require('./utils/id-gen');
-const idGen = new IdGen();
+const idGen = new IdGen('task', 100);
 
 const Component = React.Component;
 
@@ -175,7 +175,6 @@ class Tasklist extends Component {
 
     const taskText = tasks[index].text;
     const caretPosition = ui.getCaretPosition(event.target);
-    // const caretPosition = event ? ui.getCaretPosition(event.target) : taskText.length;
     tasks[index].text = taskText.substring(0, caretPosition);
 
     let oldCompleted = tasks[index].completed;
